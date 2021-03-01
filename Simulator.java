@@ -131,9 +131,7 @@ public class Simulator
     {
         step = 0;
         animals.clear();
-        field.clear();
-        updatedField.clear();
-        populate(field);
+        populate();
         
         // Show the starting state in the view.
         view.showStatus(step, field);
@@ -142,27 +140,24 @@ public class Simulator
     /**
      * Populate the field with foxes and rabbits.
      */
-    private void populate(Field field)
+    private void populate()
     {
-        Random rand = new Random();
+        Random rand = Randomizer.getRandom();
         field.clear();
         for(int row = 0; row < field.getDepth(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
                 if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
-                    Fox fox = new Fox(true);
+                    Location location = new Location(row, col);
+                    Fox fox = new Fox(true, field, location);
                     animals.add(fox);
-                    fox.setLocation(row, col);
-                    field.place(fox, row, col);
                 }
                 else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
-                    Rabbit rabbit = new Rabbit(true);
+                    Location location = new Location(row, col);
+                    Rabbit rabbit = new Rabbit(true, field, location);
                     animals.add(rabbit);
-                    rabbit.setLocation(row, col);
-                    field.place(rabbit, row, col);
                 }
                 // else leave the location empty.
             }
         }
-        Collections.shuffle(animals);
     }
 }

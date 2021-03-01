@@ -47,30 +47,22 @@ public class Rabbit extends Animal
      * This is what the rabbit does most of the time - it runs 
      * around. Sometimes it will breed or die of old age.
      */
-    public void run(Field updatedField, List newRabbits)
+    public void act(List<Animal> newRabbits)
     {
         incrementAge();
-        if(super.isAlive()) {
-            int births = breed();
-            for(int b = 0; b < births; b++) {
-                Rabbit newRabbit = new Rabbit(false, field, location);
-                newRabbits.add(newRabbit);
-                Location loc = updatedField.randomAdjacentLocation(location);
-                newRabbit.setLocation(loc);
-                updatedField.place(newRabbit, loc);
-            }
-            Location newLocation = updatedField.freeAdjacentLocation(location);
-            // Only transfer to the updated field if there was a free location
+        if(isAlive()) {
+            giveBirth(newRabbits);            
+            // Try to move into a free location.
+            Location newLocation = getField().freeAdjacentLocation(getLocation());
             if(newLocation != null) {
                 setLocation(newLocation);
-                updatedField.place(this, newLocation);
             }
             else {
-                // can neither move nor stay - overcrowding - all locations taken
-                super.setDead();
+                // Overcrowding.
+                setDead();
             }
         }
-    }
+    
     
     /**
      * Increase the age.

@@ -5,9 +5,9 @@ public class Animal {
     //Se o animal está vivo ou não.
     private boolean alive;
     // O campo do animal. 
-    private Field field;
+    protected Field field;
     // A posição do animal no campo.
-    private Location location;
+    protected Location location;
 
     public Animal(Field field, Location location) {
         alive = true;

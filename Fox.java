@@ -91,6 +91,7 @@ public class Fox extends Animal
     }
     
     /**
+     * 
      * Increase the age. This could result in the fox's death.
      */
     private void incrementAge()

@@ -62,6 +62,7 @@ public class Rabbit extends Animal
                 setDead();
             }
         }
+    }
     
     
     /**
@@ -105,6 +106,20 @@ public class Rabbit extends Animal
     public void setEaten()
     {
         super.setDead();
+    }
+
+    private void giveBirth(List<Animal> newRabbits)
+    {
+        // Novos coelhos nascem em locais adjacentes.
+        // Obtenha uma lista de locais gratuitos adjacentes.
+        Field field = getField();
+        List<Location> free = field.getFreeAdjacentLocations(getLocation());
+        int births = breed();
+        for(int b = 0; b < births && free.size() > 0; b++) {
+            Location loc = free.remove(0);
+            Rabbit young = new Rabbit(false, field, loc);
+            newRabbits.add(young);
+        }
     }
     
 

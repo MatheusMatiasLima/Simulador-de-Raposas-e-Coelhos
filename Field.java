@@ -1,6 +1,7 @@
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -130,20 +131,26 @@ public class Field
      */
     public Location freeAdjacentLocation(Location location)
     {
-        Iterator adjacent = adjacentLocations(location);
-        while(adjacent.hasNext()) {
-            Location next = (Location) adjacent.next();
-            if(field[next.getRow()][next.getCol()] == null) {
-                return next;
-            }
+        // The available free ones.
+        List<Location> free = getFreeAdjacentLocations(location);
+        if(free.size() > 0) {
+            return free.get(0);
         }
-        // check whether current location is free
-        if(field[location.getRow()][location.getCol()] == null) {
-            return location;
-        } 
         else {
             return null;
         }
+    }
+
+    public List<Location> getFreeAdjacentLocations(Location location)
+    {
+        List<Location> free = new LinkedList<>();
+        List<Location> adjacent = adjacentLocations(location);
+        for(Location next : adjacent) {
+            if(getObjectAt(next) == null) {
+                free.add(next);
+            }
+        }
+        return free;
     }
 
     /**
@@ -153,25 +160,32 @@ public class Field
      * @param location The location from which to generate adjacencies.
      * @return An iterator over locations adjacent to that given.
      */
-    public Iterator adjacentLocations(Location location)
+    public List<Location> adjacentLocations(Location location)
     {
-        int row = location.getRow();
-        int col = location.getCol();
-        LinkedList locations = new LinkedList();
-        for(int roffset = -1; roffset <= 1; roffset++) {
-            int nextRow = row + roffset;
-            if(nextRow >= 0 && nextRow < depth) {
-                for(int coffset = -1; coffset <= 1; coffset++) {
-                    int nextCol = col + coffset;
-                    // Exclude invalid locations and the original location.
-                    if(nextCol >= 0 && nextCol < width && (roffset != 0 || coffset != 0)) {
-                        locations.add(new Location(nextRow, nextCol));
+        assert location != null : "Null location passed to adjacentLocations";
+        // The list of locations to be returned.
+        List<Location> locations = new LinkedList<>();
+        if(location != null) {
+            int row = location.getRow();
+            int col = location.getCol();
+            for(int roffset = -1; roffset <= 1; roffset++) {
+                int nextRow = row + roffset;
+                if(nextRow >= 0 && nextRow < depth) {
+                    for(int coffset = -1; coffset <= 1; coffset++) {
+                        int nextCol = col + coffset;
+                        // Exclude invalid locations and the original location.
+                        if(nextCol >= 0 && nextCol < width && (roffset != 0 || coffset != 0)) {
+                            locations.add(new Location(nextRow, nextCol));
+                        }
                     }
                 }
             }
+            
+            // Shuffle the list. Several other methods rely on the list
+            // being in a random order.
+            Collections.shuffle(locations, rand);
         }
-        Collections.shuffle(locations,rand);
-        return locations.iterator();
+        return locations;
     }
 
     /**
@@ -189,4 +203,8 @@ public class Field
     {
         return width;
     }
+
+    
+
+
 }

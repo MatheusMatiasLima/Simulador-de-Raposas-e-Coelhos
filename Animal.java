@@ -53,5 +53,10 @@ public abstract class Animal {
         }
     }
 
+    //Retorna o campo do animal.
+
+    protected Field getField() {
+        return field;
+    }
 
 }

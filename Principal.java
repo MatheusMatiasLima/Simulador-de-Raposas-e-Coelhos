@@ -3,5 +3,7 @@ public class Principal{
     Simulator simulator = new Simulator();
     simulator.runLongSimulation();
     simulator.simulate(300);
+    //10.3.1
+    //10.3.2
   }
 }

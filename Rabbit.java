@@ -40,7 +40,7 @@ public class Rabbit extends Animal {
             age = rand.nextInt(MAX_AGE);
         }
     }
-    
+
     @Override
     public void act (Field currentField, Field updatedField, List newRabbits) {
         run(updatedField, newRabbits);
@@ -49,7 +49,7 @@ public class Rabbit extends Animal {
      * This is what the rabbit does most of the time - it runs 
      * around. Sometimes it will breed or die of old age.
      */
-    public void run(Field updatedField, List newRabbits) {
+    private void run(Field updatedField, List newRabbits) {
         incrementAge();
         if(alive) {
             int births = breed();

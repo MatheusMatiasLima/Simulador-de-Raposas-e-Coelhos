@@ -62,7 +62,7 @@ public class Fox extends Animal {
      * rabbits. In the process, it might breed, die of hunger,
      * or die of old age.
      */
-    public void hunt(Field currentField, Field updatedField, List newFoxes) {
+    private void hunt(Field currentField, Field updatedField, List newFoxes) {
         incrementAge();
         incrementHunger();
         if(isAlive()) {

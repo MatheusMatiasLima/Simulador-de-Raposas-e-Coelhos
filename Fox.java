@@ -9,8 +9,7 @@ import java.util.Random;
  * @author David J. Barnes and Michael Kolling
  * @version 2002-04-11
  */
-public class Fox
-{
+public class Fox extends Animal {
     // Characteristics shared by all foxes (static fields).
     
     // The age at which a fox can start to breed.
@@ -31,10 +30,6 @@ public class Fox
 
     // The fox's age.
     private int age;
-    // Whether the fox is alive or not.
-    private boolean alive;
-    // The fox's position
-    private Location location;
     // The fox's food level, which is increased by eating rabbits.
     private int foodLevel;
 
@@ -44,8 +39,7 @@ public class Fox
      * 
      * @param randomAge If true, the fox will have random age and hunger level.
      */
-    public Fox(boolean randomAge)
-    {
+    public Fox(boolean randomAge) {
         age = 0;
         alive = true;
         if(randomAge) {
@@ -63,8 +57,7 @@ public class Fox
      * rabbits. In the process, it might breed, die of hunger,
      * or die of old age.
      */
-    public void hunt(Field currentField, Field updatedField, List newFoxes)
-    {
+    public void hunt(Field currentField, Field updatedField, List newFoxes) {
         incrementAge();
         incrementHunger();
         if(isAlive()) {
@@ -96,8 +89,7 @@ public class Fox
     /**
      * Increase the age. This could result in the fox's death.
      */
-    private void incrementAge()
-    {
+    private void incrementAge() {
         age++;
         if(age > MAX_AGE) {
             alive = false;
@@ -107,8 +99,7 @@ public class Fox
     /**
      * Make this fox more hungry. This could result in the fox's death.
      */
-    private void incrementHunger()
-    {
+    private void incrementHunger() {
         foodLevel--;
         if(foodLevel <= 0) {
             alive = false;
@@ -121,8 +112,7 @@ public class Fox
      * @param location Where in the field it is located.
      * @return Where food was found, or null if it wasn't.
      */
-    private Location findFood(Field field, Location location)
-    {
+    private Location findFood(Field field, Location location) {
         Iterator adjacentLocations =
                           field.adjacentLocations(location);
         while(adjacentLocations.hasNext()) {
@@ -145,8 +135,7 @@ public class Fox
      * if it can breed.
      * @return The number of births (may be zero).
      */
-    private int breed()
-    {
+    private int breed() {
         int births = 0;
         if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
             births = rand.nextInt(MAX_LITTER_SIZE) + 1;
@@ -157,36 +146,8 @@ public class Fox
     /**
      * A fox can breed if it has reached the breeding age.
      */
-    private boolean canBreed()
-    {
+    private boolean canBreed() {
         return age >= BREEDING_AGE;
     }
     
-    /**
-     * Check whether the fox is alive or not.
-     * @return True if the fox is still alive.
-     */
-    public boolean isAlive()
-    {
-        return alive;
-    }
-
-    /**
-     * Set the animal's location.
-     * @param row The vertical coordinate of the location.
-     * @param col The horizontal coordinate of the location.
-     */
-    public void setLocation(int row, int col)
-    {
-        this.location = new Location(row, col);
-    }
-
-    /**
-     * Set the fox's location.
-     * @param location The fox's location.
-     */
-    public void setLocation(Location location)
-    {
-        this.location = location;
-    }
 }

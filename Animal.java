@@ -18,7 +18,7 @@ public abstract class Animal {
     }
 
     /**
-     * Set the fox's location.
+     * Set the animal's location.
      * @param location The fox's location.
      */
     public void setLocation(Location location) {
@@ -26,8 +26,8 @@ public abstract class Animal {
     }
 
     /**
-     * Check whether the fox is alive or not.
-     * @return True if the fox is still alive.
+     * Check whether the animal is alive or not.
+     * @return True if the animal is still alive.
      */
     public boolean isAlive() {
         return alive;

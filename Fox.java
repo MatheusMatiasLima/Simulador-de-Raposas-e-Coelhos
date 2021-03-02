@@ -57,6 +57,12 @@ public class Fox extends Animal {
      * rabbits. In the process, it might breed, die of hunger,
      * or die of old age.
      */
+
+    @Override
+    public void act (Field currentField, Field updatedField, List newFoxes) {
+        hunt(currentField, updatedField, newFoxes);
+    }
+    
     public void hunt(Field currentField, Field updatedField, List newFoxes) {
         incrementAge();
         incrementHunger();

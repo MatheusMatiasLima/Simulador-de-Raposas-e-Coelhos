@@ -45,12 +45,6 @@ public class Rabbit extends Animal {
      * This is what the rabbit does most of the time - it runs 
      * around. Sometimes it will breed or die of old age.
      */
-
-    @Override
-    public void act (Field currentField, Field updatedField, List newRabbits) {
-        run(updatedField, newRabbits);
-    }
-
     public void run(Field updatedField, List newRabbits) {
         incrementAge();
         if(alive) {

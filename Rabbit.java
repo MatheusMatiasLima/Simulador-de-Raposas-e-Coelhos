@@ -24,33 +24,40 @@ public class Rabbit extends Animal {
     
     // Individual characteristics (instance fields).
     
-    // The rabbit's age.
-    private int age;
+
 
     /**
-     * Create a new rabbit. A rabbit may be created with age
-     * zero (a new born) or with a random age.
-     * 
      * @param randomAge If true, the rabbit will have a random age.
      */
     public Rabbit(boolean randomAge) {
-        age = 0;
-        alive = true;
+        super();
         if(randomAge) {
-            age = rand.nextInt(MAX_AGE);
+            setAge(rand.nextInt(MAX_AGE));
         }
     }
 
     @Override
     public void act (Field currentField, Field updatedField, List newRabbits) {
         run(updatedField, newRabbits);
-    }   
+    }
+
+    @Override
+    public int getBreedingAge() {
+        return BREEDING_AGE;
+    }
+
+    @Override
+    public int getMaxAge () {
+        return MAX_AGE;
+    }
+
     /**
      * This is what the rabbit does most of the time - it runs 
      * around. Sometimes it will breed or die of old age.
      */
     private void run(Field updatedField, List newRabbits) {
         incrementAge();
+        
         if(alive) {
             int births = breed();
             for(int b = 0; b < births; b++) {
@@ -73,16 +80,7 @@ public class Rabbit extends Animal {
         }
     }
     
-    /**
-     * Increase the age.
-     * This could result in the rabbit's death.
-     */
-    private void incrementAge() {
-        age++;
-        if(age > MAX_AGE) {
-            alive = false;
-        }
-    }
+
     
     /**
      * Generate a number representing the number of births,
@@ -97,12 +95,6 @@ public class Rabbit extends Animal {
         return births;
     }
 
-    /**
-     * A rabbit can breed if it has reached the breeding age.
-     */
-    private boolean canBreed() {
-        return age >= BREEDING_AGE;
-    }
     
     /**
      * Tell the rabbit that it's dead now :(

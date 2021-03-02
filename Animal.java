@@ -1,8 +1,12 @@
-public class Animal {
+import java.util.List;
+
+public abstract class Animal {
     // Whether the fox is alive or not.
     protected boolean alive;
     // The fox's position
     protected Location location;
+
+    abstract public void act (Field currentField, Field updatedField, List newFoxes);
 
     /**
      * Set the animal's location.

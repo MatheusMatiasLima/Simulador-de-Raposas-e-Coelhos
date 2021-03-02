@@ -51,6 +51,11 @@ public class Fox extends Animal {
             foodLevel = RABBIT_FOOD_VALUE;
         }
     }
+
+    @Override
+    public void act (Field currentField, Field updatedField, List newFoxes) {
+        hunt(currentField, updatedField, newFoxes);
+    }
     
     /**
      * This is what the fox does most of the time: it hunts for

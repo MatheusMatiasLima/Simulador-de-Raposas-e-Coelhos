@@ -41,6 +41,10 @@ public class Rabbit extends Animal {
         }
     }
     
+    @Override
+    public void act (Field currentField, Field updatedField, List newRabbits) {
+        run(updatedField, newRabbits);
+    }   
     /**
      * This is what the rabbit does most of the time - it runs 
      * around. Sometimes it will breed or die of old age.

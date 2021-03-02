@@ -1,15 +1,13 @@
 import java.util.List;
 
 //10.3.1
-public abstract class Animal {
+public class Animal {
     //Se o animal está vivo ou não.
     private boolean alive;
     // O campo do animal. 
     protected Field field;
     // A posição do animal no campo.
     protected Location location;
-
-    abstract public void act(List<Animal> newAnimals);
 
     public Animal(Field field, Location location) {
         alive = true;
@@ -53,10 +51,5 @@ public abstract class Animal {
         }
     }
 
-    //Retorna o campo do animal.
-
-    protected Field getField() {
-        return field;
-    }
 
 }

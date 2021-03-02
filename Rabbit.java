@@ -47,23 +47,30 @@ public class Rabbit extends Animal
      * This is what the rabbit does most of the time - it runs 
      * around. Sometimes it will breed or die of old age.
      */
-    public void act(List<Animal> newRabbits)
+    public void run(Field updatedField, List newRabbits)
     {
         incrementAge();
-        if(isAlive()) {
-            giveBirth(newRabbits);            
-            // Try to move into a free location.
-            Location newLocation = getField().freeAdjacentLocation(getLocation());
+        if(super.isAlive()) {
+            int births = breed();
+            for(int b = 0; b < births; b++) {
+                Rabbit newRabbit = new Rabbit(false, field, location);
+                newRabbits.add(newRabbit);
+                Location loc = updatedField.randomAdjacentLocation(location);
+                newRabbit.setLocation(loc);
+                updatedField.place(newRabbit, loc);
+            }
+            Location newLocation = updatedField.freeAdjacentLocation(location);
+            // Only transfer to the updated field if there was a free location
             if(newLocation != null) {
                 setLocation(newLocation);
+                updatedField.place(this, newLocation);
             }
             else {
-                // Overcrowding.
-                setDead();
+                // can neither move nor stay - overcrowding - all locations taken
+                super.setDead();
             }
         }
     }
-    
     
     /**
      * Increase the age.
@@ -106,20 +113,6 @@ public class Rabbit extends Animal
     public void setEaten()
     {
         super.setDead();
-    }
-
-    private void giveBirth(List<Animal> newRabbits)
-    {
-        // Novos coelhos nascem em locais adjacentes.
-        // Obtenha uma lista de locais gratuitos adjacentes.
-        Field field = getField();
-        List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            Rabbit young = new Rabbit(false, field, loc);
-            newRabbits.add(young);
-        }
     }
     
 

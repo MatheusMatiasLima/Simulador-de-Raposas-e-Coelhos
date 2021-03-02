@@ -60,25 +60,32 @@ public class Fox extends Animal
      * rabbits. In the process, it might breed, die of hunger,
      * or die of old age.
      */
-    public void act(List<Animal> newFoxes)
+    public void hunt(Field currentField, Field updatedField, List newFoxes)
     {
         incrementAge();
         incrementHunger();
         if(isAlive()) {
-            giveBirth(newFoxes);            
-            // Move towards a source of food if found.
-            Location newLocation = findFood();
-            if(newLocation == null) { 
-                // No food found - try to move to a free location.
-                newLocation = getField().freeAdjacentLocation(getLocation());
+            // New foxes are born into adjacent locations.
+            int births = breed();
+            for(int b = 0; b < births; b++) {
+                Fox newFox = new Fox(false, updatedField, location);
+                newFoxes.add(newFox);
+                Location loc = updatedField.randomAdjacentLocation(location);
+                newFox.setLocation(loc);
+                updatedField.place(newFox, loc);
             }
-            // See if it was possible to move.
+            // Move towards the source of food if found.
+            Location newLocation = findFood(currentField, location);
+            if(newLocation == null) {  // no food found - move randomly
+                newLocation = updatedField.freeAdjacentLocation(location);
+            }
             if(newLocation != null) {
                 setLocation(newLocation);
+                updatedField.place(this, newLocation);
             }
             else {
-                // Overcrowding.
-                setDead();
+                // can neither move nor stay - overcrowding - all locations taken
+                super.setDead();
             }
         }
     }
@@ -113,18 +120,16 @@ public class Fox extends Animal
      * @return Where food was found, or null if it wasn't.
      */
 
-    private Location findFood()
+    private Location findFood(Field field, Location location)
     {
-        Field field = getField();
-        List<Location> adjacent = field.adjacentLocations(getLocation());
-        Iterator<Location> it = adjacent.iterator();
-        while(it.hasNext()) {
-            Location where = it.next();
+        Iterator adjacentLocations = field.adjacentLocations(location);
+        while(adjacentLocations.hasNext()) {
+            Location where = (Location) adjacentLocations.next();
             Object animal = field.getObjectAt(where);
             if(animal instanceof Rabbit) {
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isAlive()) { 
-                    rabbit.setDead();
+                    rabbit.setEaten();
                     foodLevel = RABBIT_FOOD_VALUE;
                     return where;
                 }
@@ -153,20 +158,6 @@ public class Fox extends Animal
     private boolean canBreed()
     {
         return age >= BREEDING_AGE;
-    }
-
-    private void giveBirth(List<Animal> newFoxes)
-    {
-        // New foxes are born into adjacent locations.
-        // Get a list of adjacent free locations.
-        Field field = getField();
-        List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            Fox young = new Fox(false, field, loc);
-            newFoxes.add(young);
-        }
     }
     
 }

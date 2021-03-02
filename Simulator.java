@@ -98,34 +98,21 @@ public class Simulator
      * Iterate over the whole field updating the state of each
      * fox and rabbit.
      */
-    public void simulateOneStep()
-    {
+
+    //***************** Alterando o simulatorOneStep()**********************
+
+    public void simulateOneStep() {
         step++;
         newAnimals.clear();
         
         // let all animals act
-        for(Iterator iter = animals.iterator(); iter.hasNext(); ) {
-            Object animal = iter.next();
-            if(animal instanceof Rabbit) {
-                Rabbit rabbit = (Rabbit)animal;
-                if(rabbit.isAlive()) {
-                    rabbit.run(updatedField, newAnimals);
-                }
-                else {
-                    iter.remove();   // remove dead rabbits from collection
-                }
-            }
-            else if(animal instanceof Fox) {
-                Fox fox = (Fox)animal;
-                if(fox.isAlive()) {
-                    fox.hunt(field, updatedField, newAnimals);
-                }
-                else {
-                    iter.remove();   // remove dead foxes from collection
-                }
+        for(Iterator<Animal> iter = animals.iterator(); iter.hasNext(); ) {
+            Animal animal = iter.next();
+            if (animal.isAlive()) {
+                animal.act(field, updatedField, newAnimals);
             }
             else {
-                System.out.println("found unknown animal");
+                iter.remove();
             }
         }
         // add new born animals to the list of animals

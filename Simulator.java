@@ -20,9 +20,9 @@ public class Simulator {
     // A profundidade padrão da grade.
     private static final int DEFAULT_DEPTH = 50;
     // A probabilidade de que uma raposa seja criada em qualquer posição da grade.
-    private static final double FOX_CREATION_PROBABILITY = 0.02;
+    //private static final double FOX_CREATION_PROBABILITY = 0.02;
     // A probabilidade de um coelho ser criado em qualquer posição da grade.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
+    //private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
 
     // A etapa atual da simulação.
     private int step;

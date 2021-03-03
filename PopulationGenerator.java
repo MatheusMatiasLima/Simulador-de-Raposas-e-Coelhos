@@ -10,6 +10,8 @@ public class PopulationGenerator {
     private static final double FOX_CREATION_PROBABILITY = 0.02;
     // A probabilidade de um coelho ser criado em qualquer posição da grade.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;
+    // A probabilidade de um jacare ser criado em qualquer posicao da grade.
+    private static final double JACARE_CRIACAO_PROBABILIDADE = 0.01;
 
     // Listas de autores no campo.
     private List<Actor> actors;
@@ -38,6 +40,7 @@ public class PopulationGenerator {
         this.view = new SimulatorView(depth, width);
         this.view.setColor(Fox.class, Color.blue);
         this.view.setColor(Rabbit.class, Color.orange);
+        this.view.setColor(Jacare.class, Color.green);
         
     }
 
@@ -88,6 +91,12 @@ public class PopulationGenerator {
                     actors.add(rabbit);
                     rabbit.setLocation(row, col);
                     field.place(rabbit, row, col);
+                }
+                else if(rand.nextDouble() <= JACARE_CRIACAO_PROBABILIDADE) {
+                    Jacare jacare = new Jacare(true);
+                    actors.add(jacare);
+                    jacare.setLocation(row, col);
+                    field.place(jacare, row, col);
                 }
             }
         }

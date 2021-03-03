@@ -1,7 +1,7 @@
 import java.util.List;
 import java.util.Random;
 
-public abstract class Animal extends Actor{
+public abstract class Animal implements Actor{
     // Whether the fox is alive or not.
     protected boolean alive;
     // The fox's position
@@ -20,10 +20,8 @@ public abstract class Animal extends Actor{
     abstract protected int getMaxLitterSize();
 
     abstract protected double getBreedingProbability();
+
     
-
-
-
     //cria um animal com a idade 0
     public Animal () {
         age = 0;

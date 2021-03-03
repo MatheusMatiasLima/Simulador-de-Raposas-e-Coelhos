@@ -63,6 +63,16 @@ public class Fox extends Animal {
     public int getMaxAge () {
         return MAX_AGE;
     }
+
+    @Override
+    public int getMaxLitterSize () {
+        return MAX_LITTER_SIZE;
+    }
+
+    @Override
+    public double getBreedingProbability () {
+        return BREEDING_PROBABILITY;
+    }
     
     /**
      * This is what the fox does most of the time: it hunts for
@@ -115,8 +125,7 @@ public class Fox extends Animal {
      * @return Where food was found, or null if it wasn't.
      */
     private Location findFood(Field field, Location location) {
-        Iterator adjacentLocations =
-                          field.adjacentLocations(location);
+        Iterator adjacentLocations = field.adjacentLocations(location);
         while(adjacentLocations.hasNext()) {
             Location where = (Location) adjacentLocations.next();
             Object animal = field.getObjectAt(where);
@@ -130,19 +139,6 @@ public class Fox extends Animal {
             }
         }
         return null;
-    }
-        
-    /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * @return The number of births (may be zero).
-     */
-    private int breed() {
-        int births = 0;
-        if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
-            births = rand.nextInt(MAX_LITTER_SIZE) + 1;
-        }
-        return births;
     }
     
 }

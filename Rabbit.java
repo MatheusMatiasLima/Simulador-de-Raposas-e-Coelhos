@@ -51,6 +51,16 @@ public class Rabbit extends Animal {
         return MAX_AGE;
     }
 
+    @Override
+    public int getMaxLitterSize () {
+        return MAX_LITTER_SIZE;
+    }
+
+    @Override
+    public double getBreedingProbability () {
+        return BREEDING_PROBABILITY;
+    }
+
     /**
      * This is what the rabbit does most of the time - it runs 
      * around. Sometimes it will breed or die of old age.
@@ -81,21 +91,6 @@ public class Rabbit extends Animal {
     }
     
 
-    
-    /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * @return The number of births (may be zero).
-     */
-    private int breed() {
-        int births = 0;
-        if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
-            births = rand.nextInt(MAX_LITTER_SIZE) + 1;
-        }
-        return births;
-    }
-
-    
     /**
      * Tell the rabbit that it's dead now :(
      */

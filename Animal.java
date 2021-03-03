@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Random;
 
 public abstract class Animal {
     // Whether the fox is alive or not.
@@ -7,12 +8,19 @@ public abstract class Animal {
     protected Location location;
     // Idade do animal
     private int age;
+    // A shared random number generator to control breeding.
+    private static final Random rand = new Random();    
     // executa a ação do animal
     abstract public void act (Field currentField, Field updatedField, List newFoxes);
     // retorna o BREEDING AGE do animal
     abstract protected int getBreedingAge();
     // retorna o MAX_AGE do animal
     abstract protected int getMaxAge();
+
+    abstract protected int getMaxLitterSize();
+
+    abstract protected double getBreedingProbability();
+    
 
 
 
@@ -46,7 +54,22 @@ public abstract class Animal {
         }
     }
 
-    
+    /**
+     * Gere um número que representa o número de nascimentos,
+     * se pode procriar.
+     * @return O número de nascimentos (pode ser zero).
+     */
+    protected int breed() {
+        int births = 0;
+        if(canBreed() && rand.nextDouble() <= getBreedingProbability()) {
+            births = rand.nextInt(getMaxLitterSize()) + 1;
+        }
+        return births;
+    }
+
+
+
+
 
     /**
      * Set the animal's location.

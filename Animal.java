@@ -1,7 +1,7 @@
 import java.util.List;
 import java.util.Random;
 
-public abstract class Animal {
+public abstract class Animal extends Actor{
     // Whether the fox is alive or not.
     protected boolean alive;
     // The fox's position
@@ -94,6 +94,11 @@ public abstract class Animal {
      */
     public boolean isAlive() {
         return alive;
+    }
+
+    @Override 
+    public boolean isAtive() {
+        return isAlive();
     }
     
 }

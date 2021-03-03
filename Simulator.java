@@ -6,60 +6,60 @@ import java.util.Collections;
 import java.awt.Color;
 
 /**
- * A simple predator-prey simulator, based on a field containing
- * rabbits and foxes.
+ * Um simples simulador de predador-presa, baseado em um campo contendo
+ * coelhos, raposas e jacares.
  * 
  * @author David J. Barnes and Michael Kolling
  * @version 2002-04-09
  */
 public class Simulator {
-    // As variáveis finais estáticas privadas representam informações de configuração para a simulação.
+    // As variaveis finais estaticas privadas representam informacoes de configuracao para a simulacao.
 
-    // A largura padrão da grade.
+    // A largura padrao da grade.
     private static final int DEFAULT_WIDTH = 50;
-    // A profundidade padrão da grade.
+    // A profundidade padrao da grade.
     private static final int DEFAULT_DEPTH = 50;
-    // A probabilidade de que uma raposa seja criada em qualquer posição da grade.
+    // A probabilidade de que uma raposa seja criada em qualquer posicao da grade.
     //private static final double FOX_CREATION_PROBABILITY = 0.02;
     // A probabilidade de um coelho ser criado em qualquer posição da grade.
     //private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
 
-    // A etapa atual da simulação.
+    // A etapa atual da simulacao.
     private int step;
 
     private PopulationGenerator populacao;
     
    
-    // Constroi um campo de simulação com tamanho padrão.
+    // Constroi um campo de simulacao com tamanho padrao.
     public Simulator() {
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
     }
     
     /**
-     * Crie um campo de simulação com o tamanho fornecido.
+     * Crie um campo de simulacao com o tamanho fornecido.
      * @param depth Profundidade do campo. Deve ser maior que zero. 
      * @param width Largura do campo. Deve ser maior que zero.
      */
     public Simulator(int depth, int width) {
         if(width <= 0 || depth <= 0) {
-            System.out.println("The dimensions must be greater than zero.");
-            System.out.println("Using default values.");
+            System.out.println("As dimensoes devem ser maiores do que zero.");
+            System.out.println("Usando valores padroes.");
             depth = DEFAULT_DEPTH;
             width = DEFAULT_WIDTH;
         }
         populacao = new PopulationGenerator(depth, width);
-        // Configure um ponto de partida válido.
+        // Configure um ponto de partida valido.
         reset();
     }
     
-    //Execute a simulação de seu estado atual por um período razoavelmente longo, por exemplo. 500 passos.
+    //Execute a simulacao de seu estado atual por um periodo razoavelmente longo, por exemplo. 500 passos.
     public void runLongSimulation() {
         simulate(500);
     }
     
      
-    // Execute a simulação de seu estado atual para um determinado número de etapas.
-    // Pare antes de um determinado número de etapas se deixar de ser viável.
+    // Execute a simulacao de seu estado atual para um determinado numero de etapas.
+    // Pare antes de um determinado numero de etapas se deixar de ser viavel.
     public void simulate(int numSteps) {
         for(int step = 1; step <= numSteps && populacao.getView().isViable(populacao.getField()); step++) {
             simulateOneStep();
@@ -67,7 +67,7 @@ public class Simulator {
     }
     
 
-    // Execute a simulação de seu estado atual para uma única etapa.
+    // Execute a simulacao de seu estado atual para uma unica etapa.
     // Repita em todo o campo atualizando o estado de cada raposa e coelho.
 
 
@@ -85,7 +85,7 @@ public class Simulator {
                 iter.remove();
             }
         }
-        // adiciona animais recém-nascidos à lista de animais
+        // adiciona animais recem-nascidos a lista de animais
         populacao.getActorsList().addAll(populacao.getNewActorsList());
         
         // Troque o campo e updatedField no final da etapa.
@@ -98,7 +98,7 @@ public class Simulator {
         populacao.getView().showStatus(step, populacao.getField());
     }
         
-    //Reset the simulation to a starting position.
+    //Reseta a simulacao para uma posicao inicial.
     public void reset()
     {
         step = 0;
@@ -107,7 +107,7 @@ public class Simulator {
         populacao.getUpdatedField().clear();
         populacao.populate(populacao.getField());
         
-        // Show the starting state in the view.
+        // Mostra a etapa inicial na tela.
         populacao.getView().showStatus(step, populacao.getField());
     }
     

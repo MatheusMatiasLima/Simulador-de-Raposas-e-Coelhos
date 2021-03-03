@@ -2,32 +2,32 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * A simple model of a rabbit.
- * Rabbits age, move, breed, and die.
+ * Modelo simples de um coelho.
+ * Coelhos nascem, movem, procriam, e morrem.
  * 
  * @author David J. Barnes and Michael Kolling
  * @version 2002-04-11
  */
 public class Rabbit extends Animal {
-    // Characteristics shared by all rabbits (static fields).
+    // Caracteristicas compartilhadas por todos coelhos (campos estaticos).
 
-    // The age at which a rabbit can start to breed.
+    // A idade que um coelho começa a procriar
     private static final int BREEDING_AGE = 5;
-    // The age to which a rabbit can live.
+    // Idade maximo que um coelho pode viver.
     private static final int MAX_AGE = 50;
-    // The likelihood of a rabbit breeding.
+    // Propabilidade de um coelho procriar
     private static final double BREEDING_PROBABILITY = 0.15;
-    // The maximum number of births.
+    // Numero maximo de nascimentos de uma gestacao
     private static final int MAX_LITTER_SIZE = 5;
-    // A shared random number generator to control breeding.
+    // Numero aleatorio compartilhado que controla os nascimentos
     private static final Random rand = new Random();
     
-    // Individual characteristics (instance fields).
+    // Caracteristicas individuais (campos de instancia).
     
 
 
     /**
-     * @param randomAge If true, the rabbit will have a random age.
+     * @param randomAge Se true, os coelhos terao uma idade aleatoria.
      */
     public Rabbit(boolean randomAge) {
         super();
@@ -62,9 +62,9 @@ public class Rabbit extends Animal {
     }
 
     /**
-     * This is what the rabbit does most of the time - it runs 
-     * around. Sometimes it will breed or die of old age.
-     */
+     * Isto e o que os coelhos normalmente fazem - correm por ai
+     * As vezes procriam ou morrem de velhice.
+     */ 
     private void run(Field updatedField, List newRabbits) {
         incrementAge();
         
@@ -78,13 +78,13 @@ public class Rabbit extends Animal {
                 updatedField.place(newRabbit, loc);
             }
             Location newLocation = updatedField.freeAdjacentLocation(location);
-            // Only transfer to the updated field if there was a free location
+            // Apenas transfere para um novo campo se possuir uma localizacao livre
             if(newLocation != null) {
                 setLocation(newLocation);
                 updatedField.place(this, newLocation);
             }
             else {
-                // can neither move nor stay - overcrowding - all locations taken
+                // Nao pode mover nem ficar - superlotacao - todas localizacoes ocupadas
                 alive = false;
             }
         }
@@ -92,7 +92,7 @@ public class Rabbit extends Animal {
     
 
     /**
-     * Tell the rabbit that it's dead now :(
+     * Conte para os coelhos que eles estao mortos agora :(
      */
     public void setEaten() {
         alive = false;

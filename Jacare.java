@@ -77,7 +77,7 @@ public class Jacare extends Animal {
         incrementAge();
         incrementHunger();
         if(isAlive()) {
-            // Novas jacares nascem em locais adjacentes.
+            // Novos jacares nascem em locais adjacentes.
             int births = breed();
             for(int b = 0; b < births; b++) {
                 Jacare newJacare = new Jacare(false);
@@ -102,7 +102,7 @@ public class Jacare extends Animal {
         }
     }
     
-    // Deixe esta raposa com mais fome. Isso pode resultar na morte da raposa.
+    // Deixe este jacaré com mais fome. Isso pode resultar na morte do jacaré.
     private void incrementHunger() {
         foodLevel--;
         if(foodLevel <= 0) {

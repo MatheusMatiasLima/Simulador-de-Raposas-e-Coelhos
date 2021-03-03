@@ -3,39 +3,39 @@ import java.util.Iterator;
 import java.util.Random;
 
 /**
- * A simple model of a fox.
- * Foxes age, move, eat rabbits, and die.
+ * Modelo simples de uma raposa.
+ * Raposas nascem, movem, comem coelhos, e morrem.
  * 
  * @author David J. Barnes and Michael Kolling
  * @version 2002-04-11
  */
 public class Fox extends Animal {
-    // Characteristics shared by all foxes (static fields).
+    // Caracteristicas compartilhadas por todas as raposas (campos estaticos).
     
-    // The age at which a fox can start to breed.
+    // A idade que a raposa comeca a procriar.
     private static final int BREEDING_AGE = 10;
-    // The age to which a fox can live.
+    // A idade que a raposa pode viver.
     private static final int MAX_AGE = 150;
-    // The likelihood of a fox breeding.
+    // A probabilidade da raposa procriar.
     private static final double BREEDING_PROBABILITY = 0.1;
-    // The maximum number of births.
+    // Numero maximo de nascimento em uma gestacao.
     private static final int MAX_LITTER_SIZE = 3;
-    // The food value of a single rabbit. In effect, this is the
-    // number of steps a fox can go before it has to eat again.
+    // Valor de comida de um coelho. Em efeito,
+    //quantidade de passos que a raposa pode fazer sem se alimentar.
     private static final int RABBIT_FOOD_VALUE = 4;
-    // A shared random number generator to control breeding.
+    // Numero aleatorio compartilhado que controla os nascimentos.
     private static final Random rand = new Random();
     
-    // Individual characteristics (instance fields).
+    // Caracteristicas individuais (campos de instancia).
 
-    // The fox's food level, which is increased by eating rabbits.
+    // Nivel de fome da raposa que aumenta ao comer coelhos.
     private int foodLevel;
 
     /**
-     * Create a fox. A fox can be created as a new born (age zero
-     * and not hungry) or with random age.
+     * Cria uma raposa. A raposa pode ser criada como um novo nascimento (idade zero
+     * e sem fome) ou com uma idade aleatoria.
      * 
-     * @param randomAge If true, the fox will have random age and hunger level.
+     * @param randomAge se true, a raposa ira ter uma idade e nivel de fome aleatorio.
      */
     public Fox(boolean randomAge) {
         super();
@@ -44,7 +44,7 @@ public class Fox extends Animal {
             foodLevel = rand.nextInt(RABBIT_FOOD_VALUE);
         }
         else {
-            // leave age at 0
+            // deixe idade 0
             foodLevel = RABBIT_FOOD_VALUE;
         }
     }
@@ -75,15 +75,14 @@ public class Fox extends Animal {
     }
     
     /**
-     * This is what the fox does most of the time: it hunts for
-     * rabbits. In the process, it might breed, die of hunger,
-     * or die of old age.
+     * Isto e o que a raposa faz na maior parte do tempo: caca coelhos.
+     * Alem disso, pode gerar filhos, morrer de fome ou de velhice. 
      */
     private void hunt(Field currentField, Field updatedField, List newFoxes) {
         incrementAge();
         incrementHunger();
         if(isAlive()) {
-            // New foxes are born into adjacent locations.
+            // Novas raposas nascem em posicoes adjacentes.
             int births = breed();
             for(int b = 0; b < births; b++) {
                 Fox newFox = new Fox(false);
@@ -92,9 +91,9 @@ public class Fox extends Animal {
                 newFox.setLocation(loc);
                 updatedField.place(newFox, loc);
             }
-            // Move towards the source of food if found.
+            // Move em direcao a comida se encontrada.
             Location newLocation = findFood(currentField, location);
-            if(newLocation == null) {  // no food found - move randomly
+            if(newLocation == null) {  // nao encontrou comida - meve aleatoriamente
                 newLocation = updatedField.freeAdjacentLocation(location);
             }
             if(newLocation != null) {
@@ -102,14 +101,14 @@ public class Fox extends Animal {
                 updatedField.place(this, newLocation);
             }
             else {
-                // can neither move nor stay - overcrowding - all locations taken
+                // pode mover ou ficar - superlotacao - todas localizacoes ocupadas
                 alive = false;
             }
         }
     }
     
     /**
-     * Make this fox more hungry. This could result in the fox's death.
+     * Faz a raposa ficar com fome, pode resultar em morte
      */
     private void incrementHunger() {
         foodLevel--;
@@ -119,10 +118,10 @@ public class Fox extends Animal {
     }
     
     /**
-     * Tell the fox to look for rabbits adjacent to its current location.
-     * @param field The field in which it must look.
-     * @param location Where in the field it is located.
-     * @return Where food was found, or null if it wasn't.
+     * Diz a raposa para procurar coelhos em posicoes adjacentes.
+     * @param field O campo que deve ser olhado.
+     * @param location Onde o campo esta localizado.
+     * @return Onde a comida foi encontrada, ou null se nao foi.
      */
     private Location findFood(Field field, Location location) {
         Iterator adjacentLocations = field.adjacentLocations(location);

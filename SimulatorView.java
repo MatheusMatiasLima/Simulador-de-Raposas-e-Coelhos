@@ -4,21 +4,21 @@ import javax.swing.*;
 import java.util.HashMap;
 
 /**
- * A graphical view of the simulation grid.
- * The view displays a colored rectangle for each location 
- * representing its contents. It uses a default background color.
- * Colors for each type of species can be defined using the
- * setColor method.
+ * Uma interface grafica do grid de simulacao
+ * A tela mostra um retangulo colorido de cada localizacao
+ * representando seus conteudos. Usa uma cor de fundo padrao.
+ * Cores para cada tipo de espécies podem ser definidas usando o
+ * metodod setColor.
  * 
  * @author David J. Barnes and Michael Kolling
  * @version 2002-04-23
  */
 public class SimulatorView extends JFrame
 {
-    // Colors used for empty locations.
+    // Cor usada para localizacoes vazias.
     private static final Color EMPTY_COLOR = Color.white;
 
-    // Color used for objects that have no defined color.
+    // Cor usada para objetos que nao possuem cor definida.
     private static final Color UNKNOWN_COLOR = Color.gray;
 
     private final String STEP_PREFIX = "Step: ";
@@ -26,20 +26,20 @@ public class SimulatorView extends JFrame
     private JLabel stepLabel, population;
     private FieldView fieldView;
     
-    // A map for storing colors for participants in the simulation
+    // Um mapa para guardar as cores dos participantes da simulacao
     private HashMap colors;
-    // A statistics object computing and storing simulation information
+    // Um objeto de estatisticas que computa e guarda as informacoes da simulacao
     private FieldStats stats;
 
     /**
-     * Create a view of the given width and height.
+     * Cria uma tela com os dados de largura e altura.
      */
     public SimulatorView(int height, int width)
     {
         stats = new FieldStats();
         colors = new HashMap();
 
-        setTitle("Fox and Rabbit Simulation");
+        setTitle("Simulacao de Raposas, Coelhos e Jacares");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
         
@@ -56,7 +56,7 @@ public class SimulatorView extends JFrame
     }
     
     /**
-     * Define a color to be used for a given class of animal.
+     * Defini a cor para ser usada em cada classe de animal.
      */
     public void setColor(Class animalClass, Color color)
     {
@@ -64,13 +64,13 @@ public class SimulatorView extends JFrame
     }
 
     /**
-     * Define a color to be used for a given class of animal.
-     */
+    * Defini a cor para ser usada em cada classe de animal.
+    */
     private Color getColor(Class animalClass)
     {
         Color col = (Color)colors.get(animalClass);
         if(col == null) {
-            // no color defined for this class
+            // cor nao definida para a classe
             return UNKNOWN_COLOR;
         }
         else {
@@ -79,9 +79,9 @@ public class SimulatorView extends JFrame
     }
 
     /**
-     * Show the current status of the field.
-     * @param step Which iteration step it is.
-     * @param stats Status of the field to be represented.
+     * Mostra o atual estado do campo.
+     * @param step Qual interacao esta.
+     * @param stats Estado do campo para ser representando.
      */
     public void showStatus(int step, Field field)
     {
@@ -112,8 +112,8 @@ public class SimulatorView extends JFrame
     }
 
     /**
-     * Determine whether the simulation should continue to run.
-     * @return true If there is more than one species alive.
+     * Determina se a simulacao deve continuar executando.
+     * @return true se possui mais de uma especie viva.
      */
     public boolean isViable(Field field)
     {
@@ -121,12 +121,11 @@ public class SimulatorView extends JFrame
     }
     
     /**
-     * Provide a graphical view of a rectangular field. This is 
-     * a nested class (a class defined inside a class) which
-     * defines a custom component for the user interface. This
-     * component displays the field.
-     * This is rather advanced GUI stuff - you can ignore this 
-     * for your project if you like.
+     * Proporciona uma interface grafica de um campo retangular. Isto e
+     * uma classe dentro de uma classse que define componentes customizados para a
+     * interface de usuario. Este componente mostra o campo.
+     * Isto sao coisas avancadas da GUI - voce pode ignorar isto
+     * para seu projeto se voce quiser.
      */
     private class FieldView extends JPanel
     {
@@ -139,7 +138,7 @@ public class SimulatorView extends JFrame
         private Image fieldImage;
 
         /**
-         * Create a new FieldView component.
+         * Cria um novo componente de campo de visao.
          */
         public FieldView(int height, int width)
         {
@@ -149,7 +148,7 @@ public class SimulatorView extends JFrame
         }
 
         /**
-         * Tell the GUI manager how big we would like to be.
+         * Diz o gerenciador da GUI o qual grande deve ser.
          */
         public Dimension getPreferredSize()
         {
@@ -158,12 +157,12 @@ public class SimulatorView extends JFrame
         }
         
         /**
-         * Prepare for a new round of painting. Since the component
-         * may be resized, compute the scaling factor again.
+         * Prepara para uma nova rodada de desenho. Para que o componente
+         * posso ser redimenzionada, calcula o fator de escala novamente.
          */
         public void preparePaint()
         {
-            if(! size.equals(getSize())) {  // if the size has changed...
+            if(! size.equals(getSize())) {  // se o tamanho tiver mudado...
                 size = getSize();
                 fieldImage = fieldView.createImage(size.width, size.height);
                 g = fieldImage.getGraphics();
@@ -180,7 +179,7 @@ public class SimulatorView extends JFrame
         }
         
         /**
-         * Paint on grid location on this field in a given color.
+         * Desenha no grid de localizacao neste campo em uma cor dada.
          */
         public void drawMark(int x, int y, Color color)
         {
@@ -189,8 +188,8 @@ public class SimulatorView extends JFrame
         }
 
         /**
-         * The field view component needs to be redisplayed. Copy the
-         * internal image to screen.
+         * O componente da tele do campo precisa ser mostrado novamente. Copia
+         * imagem interna da tela.
          */
         public void paintComponent(Graphics g)
         {

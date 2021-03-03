@@ -1,19 +1,19 @@
 /**
- * Represent a location in a rectangular grid.
+ * Representa a localização em um grid retangular.
  * 
  * @author David J. Barnes and Michael Kolling
  * @version 2002-04-09
  */
 public class Location
 {
-    // Row and column positions.
+    // Posicoes de linhas e colunas.
     private int row;
     private int col;
 
     /**
-     * Represent a row and column.
-     * @param row The row.
-     * @param col The column.
+     * Representa uma linha e uma coluna.
+     * @param row A linha.
+     * @param col A coluna.
      */
     public Location(int row, int col)
     {
@@ -22,7 +22,7 @@ public class Location
     }
     
     /**
-     * Implement content equality.
+     * Implementa igualdade de conteudo.
      */
     public boolean equals(Object obj)
     {
@@ -36,8 +36,8 @@ public class Location
     }
     
     /**
-     * Return a string of the form row,column
-     * @return A string representation of the location.
+     * Retorna uma string da forma linha, coluna
+     * @return Representacao da localizacao em forma de string.
      */
     public String toString()
     {
@@ -45,9 +45,9 @@ public class Location
     }
     
     /**
-     * Use the top 16 bits for the row value and the bottom for
-     * the column. Except for very big grids, this should give a
-     * unique hash code for each (row, col) pair.
+     * Use os 16 bits do topo para valores de linha e os da base para
+     * a coluna. Exceto para grids muito grandes, isto deve dar um
+     * codigo hash unico para cada par de (linha, coluna)
      */
     public int hashCode()
     {
@@ -55,7 +55,7 @@ public class Location
     }
     
     /**
-     * @return The row.
+     * @return A linha
      */
     public int getRow()
     {
@@ -63,7 +63,7 @@ public class Location
     }
     
     /**
-     * @return The column.
+     * @return A coluna.
      */
     public int getCol()
     {

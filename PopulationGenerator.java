@@ -15,14 +15,14 @@ public class PopulationGenerator {
 
     // Listas de autores no campo.
     private List<Actor> actors;
-    // A lista de autores recém-nascidos
+    // A lista de autores recem-nascidos
     private List newActors;
     // O estado atual do campo.
     private Field field;
-    // Um segundo campo, usado para construir a próxima fase da simulação.
+    // Um segundo campo, usado para construir a proxima fase da simulacao.
     private Field updatedField;
     
-    // A graphical view of the simulation.
+    // Interface grafica visual da simulacao.
     private SimulatorView view;
     
     
@@ -36,7 +36,7 @@ public class PopulationGenerator {
     }
 
     private void setColor(int depth, int width) {
-        // Cria uma visualização do estado de cada local no campo.
+        // Cria uma visualizaao do estado de cada local no campo.
         this.view = new SimulatorView(depth, width);
         this.view.setColor(Fox.class, Color.blue);
         this.view.setColor(Rabbit.class, Color.orange);

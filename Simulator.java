@@ -12,64 +12,43 @@ import java.awt.Color;
  * @author David J. Barnes and Michael Kolling
  * @version 2002-04-09
  */
-public class Simulator
-{
-    // The private static final variables represent 
-    // configuration information for the simulation.
-    // The default width for the grid.
+public class Simulator {
+    // As variáveis finais estáticas privadas representam informações de configuração para a simulação.
+
+    // A largura padrão da grade.
     private static final int DEFAULT_WIDTH = 50;
-    // The default depth of the grid.
+    // A profundidade padrão da grade.
     private static final int DEFAULT_DEPTH = 50;
-    // The probability that a fox will be created in any given grid position.
+    // A probabilidade de que uma raposa seja criada em qualquer posição da grade.
     private static final double FOX_CREATION_PROBABILITY = 0.02;
-    // The probability that a rabbit will be created in any given grid position.
+    // A probabilidade de um coelho ser criado em qualquer posição da grade.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
 
-    // The list of animals in the field
-    private List animals;
-    // The list of animals just born
-    private List newAnimals;
-    // The current state of the field.
-    private Field field;
-    // A second field, used to build the next stage of the simulation.
-    private Field updatedField;
-    // The current step of the simulation.
+    // A etapa atual da simulação.
     private int step;
-    // A graphical view of the simulation.
-    private SimulatorView view;
+
+    private PopulationGenerator populacao;
     
-    /**
-     * Construct a simulation field with default size.
-     */
-    public Simulator()
-    {
+   
+    // Constroi um campo de simulação com tamanho padrão.
+    public Simulator() {
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
     }
     
     /**
-     * Create a simulation field with the given size.
-     * @param depth Depth of the field. Must be greater than zero.
-     * @param width Width of the field. Must be greater than zero.
+     * Crie um campo de simulação com o tamanho fornecido.
+     * @param depth Profundidade do campo. Deve ser maior que zero. 
+     * @param width Largura do campo. Deve ser maior que zero.
      */
-    public Simulator(int depth, int width)
-    {
+    public Simulator(int depth, int width) {
         if(width <= 0 || depth <= 0) {
             System.out.println("The dimensions must be greater than zero.");
             System.out.println("Using default values.");
             depth = DEFAULT_DEPTH;
             width = DEFAULT_WIDTH;
         }
-        animals = new ArrayList();
-        newAnimals = new ArrayList();
-        field = new Field(depth, width);
-        updatedField = new Field(depth, width);
-
-        // Create a view of the state of each location in the field.
-        view = new SimulatorView(depth, width);
-        view.setColor(Fox.class, Color.blue);
-        view.setColor(Rabbit.class, Color.orange);
-        
-        // Setup a valid starting point.
+        populacao = new PopulationGenerator(depth, width);
+        // Configure um ponto de partida válido.
         reset();
     }
     
@@ -81,9 +60,8 @@ public class Simulator
      
     // Execute a simulação de seu estado atual para um determinado número de etapas.
     // Pare antes de um determinado número de etapas se deixar de ser viável.
-    public void simulate(int numSteps)
-    {
-        for(int step = 1; step <= numSteps && view.isViable(field); step++) {
+    public void simulate(int numSteps) {
+        for(int step = 1; step <= numSteps && populacao.getView().isViable(populacao.getField()); step++) {
             simulateOneStep();
         }
     }
@@ -95,45 +73,45 @@ public class Simulator
 
     public void simulateOneStep() {
         step++;
-        newAnimals.clear();
+        populacao.getNewActorsList().clear();
         
         // deixe todos os animais agirem
-        for(Iterator<Actor> iter = animals.iterator(); iter.hasNext(); ) {
+        for(Iterator<Actor> iter = populacao.getActorsList().iterator(); iter.hasNext(); ) {
             Actor animal = iter.next();
             if (animal.isAtive()) {
-                animal.act(field, updatedField, newAnimals);
+                animal.act(populacao.getField(), populacao.getUpdatedField(), populacao.getNewActorsList());
             }
             else {
                 iter.remove();
             }
         }
         // adiciona animais recém-nascidos à lista de animais
-        animals.addAll(newAnimals);
+        populacao.getActorsList().addAll(populacao.getNewActorsList());
         
         // Troque o campo e updatedField no final da etapa.
-        Field temp = field;
-        field = updatedField;
-        updatedField = temp;
-        updatedField.clear();
+        Field temp = populacao.getField();
+        populacao.setField(populacao.getUpdatedField());
+        populacao.setUpdatedField(temp);
+        populacao.getUpdatedField().clear();
 
         // exibir o novo campo na tela
-        view.showStatus(step, field);
+        populacao.getView().showStatus(step, populacao.getField());
     }
         
     //Reset the simulation to a starting position.
     public void reset()
     {
         step = 0;
-        animals.clear();
-        field.clear();
-        updatedField.clear();
-        populate(field);
+        populacao.getActorsList().clear();
+        populacao.getField().clear();
+        populacao.getUpdatedField().clear();
+        populacao.populate(populacao.getField());
         
         // Show the starting state in the view.
-        view.showStatus(step, field);
+        populacao.getView().showStatus(step, populacao.getField());
     }
     
-
+/*
     // Povoe o campo com raposas e coelhos.
     private void populate(Field field) {
         Random rand = new Random();
@@ -157,4 +135,5 @@ public class Simulator
         }
         Collections.shuffle(animals);
     }
+*/
 }

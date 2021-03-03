@@ -73,19 +73,14 @@ public class Simulator
         reset();
     }
     
-    /**
-     * Run the simulation from its current state for a reasonably long period,
-     * e.g. 500 steps.
-     */
-    public void runLongSimulation()
-    {
+    //Execute a simulação de seu estado atual por um período razoavelmente longo, por exemplo. 500 passos.
+    public void runLongSimulation() {
         simulate(500);
     }
     
-    /**
-     * Run the simulation from its current state for the given number of steps.
-     * Stop before the given number of steps if it ceases to be viable.
-     */
+     
+    // Execute a simulação de seu estado atual para um determinado número de etapas.
+    // Pare antes de um determinado número de etapas se deixar de ser viável.
     public void simulate(int numSteps)
     {
         for(int step = 1; step <= numSteps && view.isViable(field); step++) {
@@ -93,44 +88,39 @@ public class Simulator
         }
     }
     
-    /**
-     * Run the simulation from its current state for a single step.
-     * Iterate over the whole field updating the state of each
-     * fox and rabbit.
-     */
 
-    //***************** Alterando o simulatorOneStep()**********************
+    // Execute a simulação de seu estado atual para uma única etapa.
+    // Repita em todo o campo atualizando o estado de cada raposa e coelho.
+
 
     public void simulateOneStep() {
         step++;
         newAnimals.clear();
         
-        // let all animals act
-        for(Iterator<Animal> iter = animals.iterator(); iter.hasNext(); ) {
-            Animal animal = iter.next();
-            if (animal.isAlive()) {
+        // deixe todos os animais agirem
+        for(Iterator<Actor> iter = animals.iterator(); iter.hasNext(); ) {
+            Actor animal = iter.next();
+            if (animal.isAtive()) {
                 animal.act(field, updatedField, newAnimals);
             }
             else {
                 iter.remove();
             }
         }
-        // add new born animals to the list of animals
+        // adiciona animais recém-nascidos à lista de animais
         animals.addAll(newAnimals);
         
-        // Swap the field and updatedField at the end of the step.
+        // Troque o campo e updatedField no final da etapa.
         Field temp = field;
         field = updatedField;
         updatedField = temp;
         updatedField.clear();
 
-        // display the new field on screen
+        // exibir o novo campo na tela
         view.showStatus(step, field);
     }
         
-    /**
-     * Reset the simulation to a starting position.
-     */
+    //Reset the simulation to a starting position.
     public void reset()
     {
         step = 0;
@@ -143,11 +133,9 @@ public class Simulator
         view.showStatus(step, field);
     }
     
-    /**
-     * Populate the field with foxes and rabbits.
-     */
-    private void populate(Field field)
-    {
+
+    // Povoe o campo com raposas e coelhos.
+    private void populate(Field field) {
         Random rand = new Random();
         field.clear();
         for(int row = 0; row < field.getDepth(); row++) {
@@ -164,7 +152,7 @@ public class Simulator
                     rabbit.setLocation(row, col);
                     field.place(rabbit, row, col);
                 }
-                // else leave the location empty.
+                // caso contrário, deixe o local vazio.
             }
         }
         Collections.shuffle(animals);

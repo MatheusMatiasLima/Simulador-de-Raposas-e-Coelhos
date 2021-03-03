@@ -2,42 +2,35 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
 
-/**
- * A simple model of a fox.
- * Foxes age, move, eat rabbits, and die.
- * 
- * @author David J. Barnes and Michael Kolling
- * @version 2002-04-11
- */
+
+//Um modelo simples de um jacaré.  Os jacarés envelhecem, se movem, comem coelhos, raposas e morrem.
 public class Jacare extends Animal {
-    // Characteristics shared by all foxes (static fields).
+    // Características compartilhadas por todos os jacarés (campos estáticos).
     
-    // The age at which a fox can start to breed.
+    // A idade em que um jacaré pode começar a procriar.
     private static final int BREEDING_AGE = 20;
-    // The age to which a fox can live.
-    private static final int MAX_AGE = 75;
-    // The likelihood of a fox breeding.
-    private static final double BREEDING_PROBABILITY = 0.02;
-    // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 8;
-    // The food value of a single rabbit. In effect, this is the
-    // number of steps a fox can go before it has to eat again.
-    private static final int RABBIT_FOOD_VALUE = 4;
-    private static final int FOX_FOOD_VALUE = 8;
-    // A shared random number generator to control breeding.
+    // A idade até a qual um jacaré pode viver.
+    private static final int MAX_AGE = 200;
+    // A probabilidade de uma criação de raposas.
+    private static final double BREEDING_PROBABILITY = 0.01;
+    // O número máximo de nascimentos.
+    private static final int MAX_LITTER_SIZE = 10;
+    // O valor alimentar de um único coelho. Na verdade, este é o
+    // número de passos que um jacaré pode dar antes de ter que comer novamente.
+    private static final int RABBIT_FOOD_VALUE = 2;
+    // O valor alimentar de uma única raposa. Na verdade, este é o
+    // número de passos que um jacaré pode dar antes de ter que comer novamente.
+    private static final int FOX_FOOD_VALUE = 100;
+    // Um gerador de números aleatórios compartilhado para controlar a reprodução.
     private static final Random rand = new Random();
     
-    // Individual characteristics (instance fields).
-
-    // The fox's food level, which is increased by eating rabbits.
+    // Características individuais (campos de instância).
+    // O nível de comida do jacare, que é aumentado comendo coelhos e raposas.
     private int foodLevel;
-
-    /**
-     * Create a fox. A fox can be created as a new born (age zero
-     * and not hungry) or with random age.
-     * 
-     * @param randomAge If true, the fox will have random age and hunger level.
-     */
+  
+    //Cria um jacaré. Um jacaré pode ser criada como um recém-nascido (idade zero e sem fome) ou com idade aleatória.
+    //@param randomAge Se verdadeiro, o jacaré terá idade e nível de fome aleatórios.
+     
     public Jacare(boolean randomAge) {
         super();
         if(randomAge) {
@@ -45,7 +38,7 @@ public class Jacare extends Animal {
             foodLevel = rand.nextInt(FOX_FOOD_VALUE);
         }
         else {
-            // leave age at 0
+            // deixar a idade em 0
             foodLevel = FOX_FOOD_VALUE;
         }
     }
@@ -75,27 +68,27 @@ public class Jacare extends Animal {
         return BREEDING_PROBABILITY;
     }
     
-    /**
-     * This is what the fox does most of the time: it hunts for
-     * rabbits. In the process, it might breed, die of hunger,
-     * or die of old age.
-     */
-    private void hunt(Field currentField, Field updatedField, List newFoxes) {
+    /*
+    * Isso é o que o jacaré faz na maioria das vezes: ela caça
+    * coelhos e raposas. No processo, ele pode se reproduzir, morrer de fome,
+    * ou morrer de velhice.
+    */
+    private void hunt(Field currentField, Field updatedField, List newJacares) {
         incrementAge();
         incrementHunger();
         if(isAlive()) {
-            // New foxes are born into adjacent locations.
+            // Novas jacares nascem em locais adjacentes.
             int births = breed();
             for(int b = 0; b < births; b++) {
                 Jacare newJacare = new Jacare(false);
-                newFoxes.add(newJacare);
+                newJacares.add(newJacare);
                 Location loc = updatedField.randomAdjacentLocation(location);
                 newJacare.setLocation(loc);
                 updatedField.place(newJacare, loc);
             }
-            // Move towards the source of food if found.
+            // Mova-se em direção à fonte de alimento se encontrada
             Location newLocation = findFood(currentField, location);
-            if(newLocation == null) {  // no food found - move randomly
+            if(newLocation == null) {  // nenhum alimento encontrado - mover aleatoriamente
                 newLocation = updatedField.freeAdjacentLocation(location);
             }
             if(newLocation != null) {
@@ -103,15 +96,13 @@ public class Jacare extends Animal {
                 updatedField.place(this, newLocation);
             }
             else {
-                // can neither move nor stay - overcrowding - all locations taken
+                // não pode se mover nem ficar - superlotação - todos os locais tomados
                 alive = false;
             }
         }
     }
     
-    /**
-     * Make this fox more hungry. This could result in the fox's death.
-     */
+    // Deixe esta raposa com mais fome. Isso pode resultar na morte da raposa.
     private void incrementHunger() {
         foodLevel--;
         if(foodLevel <= 0) {
@@ -120,11 +111,11 @@ public class Jacare extends Animal {
     }
     
     /**
-     * Tell the fox to look for rabbits adjacent to its current location.
-     * @param field The field in which it must look.
-     * @param location Where in the field it is located.
-     * @return Where food was found, or null if it wasn't.
-     */
+      * Fala pro Jacare procurar coelhos ou raposas adjacentes à sua localização atual.
+      * @param field O campo no qual ele deve olhar.
+      * @param location Onde no campo ele está localizado.
+      * @return Onde a comida foi encontrada, ou null se não for.
+      */
     private Location findFood(Field field, Location location) {
         Iterator adjacentLocations = field.adjacentLocations(location);
         while(adjacentLocations.hasNext()) {

@@ -24,37 +24,68 @@ public class SimulatorView extends JFrame
     private final String STEP_PREFIX = "Step: ";
     private final String POPULATION_PREFIX = "Population: ";
     private JLabel stepLabel, population;
+    private JButton pauseButton;
+    private JPanel southPanel;
     private FieldView fieldView;
+
+    private boolean pause = false;
     
     // Um mapa para guardar as cores dos participantes da simulacao
     private HashMap colors;
     // Um objeto de estatisticas que computa e guarda as informacoes da simulacao
     private FieldStats stats;
+    private Simulator simulator;
 
     /**
      * Cria uma tela com os dados de largura e altura.
      */
-    public SimulatorView(int height, int width)
+    public SimulatorView(int height, int width, Simulator simulator)
     {
+        this.simulator = simulator;
         stats = new FieldStats();
         colors = new HashMap();
 
         setTitle("Simulacao de Raposas, Coelhos e Jacares");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
+
+        pauseButton = new JButton("PAUSE");
+        configureButtonEvent();
         
         setLocation(100, 50);
         
         fieldView = new FieldView(height, width);
 
+
+
+        southPanel = new JPanel(new GridLayout(2, 1));
+        southPanel.add(population);
+        southPanel.add(pauseButton);
+
         Container contents = getContentPane();
         contents.add(stepLabel, BorderLayout.NORTH);
         contents.add(fieldView, BorderLayout.CENTER);
-        contents.add(population, BorderLayout.SOUTH);
+        contents.add(southPanel, BorderLayout.SOUTH);
         pack();
         setVisible(true);
     }
-    
+
+    private void configureButtonEvent()
+    {
+    	pauseButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent)
+            {
+                if(pause)
+                    simulator.resume();
+                else
+                    simulator.suspend();
+                pause = !pause;
+            }
+        });
+    }
+
     /**
      * Defini a cor para ser usada em cada classe de animal.
      */

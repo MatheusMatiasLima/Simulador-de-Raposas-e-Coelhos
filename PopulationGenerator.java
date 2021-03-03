@@ -24,10 +24,11 @@ public class PopulationGenerator {
     
     // Interface grafica visual da simulacao.
     private SimulatorView view;
-    
-    
-    
-    public PopulationGenerator(int depth, int width) {
+    private Simulator simulator;
+
+
+    public PopulationGenerator(int depth, int width, Simulator simulator) {
+        this.simulator = simulator;
         actors = new ArrayList<>();
         newActors = new ArrayList<>();
         field = new Field(depth, width);
@@ -37,7 +38,7 @@ public class PopulationGenerator {
 
     private void setColor(int depth, int width) {
         // Cria uma visualizaao do estado de cada local no campo.
-        this.view = new SimulatorView(depth, width);
+        this.view = new SimulatorView(depth, width, simulator);
         this.view.setColor(Fox.class, Color.blue);
         this.view.setColor(Rabbit.class, Color.orange);
         this.view.setColor(Jacare.class, Color.green);

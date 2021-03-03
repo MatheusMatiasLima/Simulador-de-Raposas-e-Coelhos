@@ -12,7 +12,7 @@ import java.awt.Color;
  * @author David J. Barnes and Michael Kolling
  * @version 2002-04-09
  */
-public class Simulator {
+public class Simulator extends Thread {
     // As variaveis finais estaticas privadas representam informacoes de configuracao para a simulacao.
 
     // A largura padrao da grade.
@@ -47,14 +47,21 @@ public class Simulator {
             depth = DEFAULT_DEPTH;
             width = DEFAULT_WIDTH;
         }
-        populacao = new PopulationGenerator(depth, width);
+        populacao = new PopulationGenerator(depth, width, this);
         // Configure um ponto de partida valido.
         reset();
     }
-    
+
+    @Override
+    public void run()
+    {
+        runLongSimulation();
+        super.run();
+    }
+
     //Execute a simulacao de seu estado atual por um periodo razoavelmente longo, por exemplo. 500 passos.
     public void runLongSimulation() {
-        simulate(500);
+        simulate(50000);
     }
     
      

@@ -31,23 +31,11 @@ public class Chuva extends ProblemasAmbientais {
         Iterator adjacentLocations = field.adjacentLocations(location);
         while(adjacentLocations.hasNext()) {
             Location where = (Location) adjacentLocations.next();
-            Object animal = field.getObjectAt(where);
-            if(animal instanceof Rabbit) {
-                Rabbit rabbit = (Rabbit) animal;
-                if(rabbit.isAlive()) { 
-                    rabbit.deixarDoente();
-                }
-            }
-            else if (animal instanceof Fox){
-                Fox fox = (Fox) animal;
-                if(fox.alive){
-                    fox.deixarDoente();
-                }
-            }
-            else if (animal instanceof Jacare) {
-                Jacare jacare = (Jacare) animal;
-                if (jacare.isAtive()) {
-                    jacare.deixarDoente();
+            Object obj = field.getObjectAt(where);
+            if(obj instanceof Animal) {
+                Animal animal = (Animal) obj;
+                if(animal.isAtive()) { 
+                    animal.deixarDoente();
                 }
             }
         }

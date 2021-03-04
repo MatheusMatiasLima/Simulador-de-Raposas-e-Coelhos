@@ -80,6 +80,17 @@ public class SimulatorView extends JFrame
         contents.add(southPanel, BorderLayout.SOUTH);
         pack();
         setVisible(true);
+
+        this.addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                simulator.stop();
+                super.windowClosing(e);
+                System.exit(0);
+            }
+        });
     }
 
     //Funçao para configurar botoes de click desse Jframe

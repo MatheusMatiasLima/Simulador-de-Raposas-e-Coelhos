@@ -18,18 +18,12 @@ public class Simulator extends Thread {
     // A largura padrao da grade.
     private static final int DEFAULT_WIDTH = 150;
     // A profundidade padrao da grade.
-    private static final int DEFAULT_DEPTH = 100;
-    // A probabilidade de que uma raposa seja criada em qualquer posicao da grade.
-    //private static final double FOX_CREATION_PROBABILITY = 0.02;
-    // A probabilidade de um coelho ser criado em qualquer posição da grade.
-    //private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
-
+    private static final int DEFAULT_DEPTH = 100; 
     // A etapa atual da simulacao.
     private int step;
-
     //Quantidade de delay ao executar cada passo da simulaçao
     private long delay = 0;
-
+    // População da simulação
     private PopulationGenerator populacao;
     
    
@@ -56,8 +50,7 @@ public class Simulator extends Thread {
     }
 
     @Override
-    public void run()
-    {
+    public void run() {
         runLongSimulation();
         super.run();
     }
@@ -117,8 +110,7 @@ public class Simulator extends Thread {
     }
         
     //Reseta a simulacao para uma posicao inicial.
-    public void reset()
-    {
+    public void reset() {
         step = 0;
         populacao.getActorsList().clear();
         populacao.getField().clear();
@@ -129,39 +121,11 @@ public class Simulator extends Thread {
         populacao.getView().showStatus(step, populacao.getField());
     }
 
-    public long getDelay()
-    {
+    public long getDelay() {
         return delay;
     }
 
-    public void setDelay(long delay)
-    {
+    public void setDelay(long delay) {
         this.delay = delay;
     }
-    
-/*
-    // Povoe o campo com raposas e coelhos.
-    private void populate(Field field) {
-        Random rand = new Random();
-        field.clear();
-        for(int row = 0; row < field.getDepth(); row++) {
-            for(int col = 0; col < field.getWidth(); col++) {
-                if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
-                    Fox fox = new Fox(true);
-                    actors.add(fox);
-                    fox.setLocation(row, col);
-                    field.place(fox, row, col);
-                }
-                else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
-                    Rabbit rabbit = new Rabbit(true);
-                    actors.add(rabbit);
-                    rabbit.setLocation(row, col);
-                    field.place(rabbit, row, col);
-                }
-                // caso contrário, deixe o local vazio.
-            }
-        }
-        Collections.shuffle(actors);
-    }
-*/
 }

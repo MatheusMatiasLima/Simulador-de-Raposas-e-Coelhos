@@ -1,3 +1,6 @@
+/* Classe abstrata para atores do tipo cenario, que influenciam o mundo,
+*  possui assinatura que suas classes filhas usam para agir em cada etapa da simulacao
+*/
 import java.util.List;
 import java.util.Random;
 public abstract class Cenario implements Actor{

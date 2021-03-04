@@ -1,3 +1,6 @@
+/* Subclasse para cenario do tipo Lago, que influenciam o mundo,
+*  somente instancias da classe Jacara podera nascer e se movimentar neste local.
+*/
 import java.util.List;
 import java.util.Iterator;
 public class Lago extends Cenario {

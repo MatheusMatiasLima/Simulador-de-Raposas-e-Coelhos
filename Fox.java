@@ -82,10 +82,10 @@ public class Fox extends Animal {
             // Novas raposas nascem em posicoes adjacentes.
             int births = breed();
             for(int b = 0; b < births; b++) {
-                //Fox newFox = new Fox(false);
-                //newFoxes.add(newFox);
                 Location loc = updatedField.randomAdjacentLocation(location);
                 Object obj = updatedField.getObjectAt(loc);
+                
+                // Casa haja nascimentos em um local que possua agua, o filhote de raposa nao sobrevivera
                 if(!(obj instanceof Lago)){
                     Fox newFox = new Fox(false);
                     newFoxes.add(newFox);

@@ -119,6 +119,7 @@ public class Field
      * Se nao, retorna null.
      * A localizacao retornada sera com bordas validas do campo.
      * @param location Localizacao a qual gerou a adjacencia.
+     * @param andaSobreAgua Se true, indica que um campo do tipo lago sera considerado como posicao livre (Ator anda sobre agua)
      * @return Uma localizacao valida da area do grid. Isto pode estar em mesmo objeto
      * como o parametro da localizacao, ou nulo se todas localizacoes ao redor estiverem cheia.
      */

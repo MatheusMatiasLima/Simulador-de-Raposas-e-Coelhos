@@ -19,7 +19,7 @@ public class Fox extends Animal {
     // A probabilidade da raposa procriar.
     private static final double BREEDING_PROBABILITY = 0.1;
     // Numero maximo de nascimento em uma gestacao.
-    private static final int MAX_LITTER_SIZE = 5;
+    private static final int MAX_LITTER_SIZE = 6;
     // Valor de comida de um coelho. Em efeito,
     //quantidade de passos que a raposa pode fazer sem se alimentar.
     private static final int RABBIT_FOOD_VALUE = 4;
@@ -27,14 +27,12 @@ public class Fox extends Animal {
     private static final Random rand = new Random();
     
     // Caracteristicas individuais (campos de instancia).
-
     // Nivel de fome da raposa que aumenta ao comer coelhos.
     private int foodLevel;
 
     /**
      * Cria uma raposa. A raposa pode ser criada como um novo nascimento (idade zero
      * e sem fome) ou com uma idade aleatoria.
-     * 
      * @param randomAge se true, a raposa ira ter uma idade e nivel de fome aleatorio.
      */
     public Fox(boolean randomAge) {
@@ -43,8 +41,7 @@ public class Fox extends Animal {
             setAge(rand.nextInt(MAX_AGE));
             foodLevel = rand.nextInt(RABBIT_FOOD_VALUE);
         }
-        else {
-            // deixe idade 0
+        else { // deixe idade 0
             foodLevel = RABBIT_FOOD_VALUE;
         }
     }

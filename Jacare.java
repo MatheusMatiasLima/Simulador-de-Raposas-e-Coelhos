@@ -12,15 +12,15 @@ public class Jacare extends Animal {
     // A idade até a qual um jacaré pode viver.
     private static final int MAX_AGE = 200;
     // A probabilidade de uma criação de raposas.
-    private static final double BREEDING_PROBABILITY = 0.01;
+    private static final double BREEDING_PROBABILITY = 0.03;
     // O número máximo de nascimentos.
-    private static final int MAX_LITTER_SIZE = 10;
+    private static final int MAX_LITTER_SIZE = 20;
     // O valor alimentar de um único coelho. Na verdade, este é o
     // número de passos que um jacaré pode dar antes de ter que comer novamente.
     private static final int RABBIT_FOOD_VALUE = 2;
     // O valor alimentar de uma única raposa. Na verdade, este é o
     // número de passos que um jacaré pode dar antes de ter que comer novamente.
-    private static final int FOX_FOOD_VALUE = 100;
+    private static final int FOX_FOOD_VALUE = 80;
     // Um gerador de números aleatórios compartilhado para controlar a reprodução.
     private static final Random rand = new Random();
     

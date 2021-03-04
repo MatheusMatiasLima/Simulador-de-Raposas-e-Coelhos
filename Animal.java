@@ -2,32 +2,28 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class Animal implements Actor{
-    // Whether the fox is alive or not.
+    // Se o animal está vivo ou não
     protected boolean alive;
-    // The fox's position
+    // A posição do animal
     protected Location location;
     // Idade do animal
     private int age;
-    // A shared random number generator to control breeding.
+    // Um gerador de números aleatórios compartilhado para controlar a reprodução.
     private static final Random rand = new Random();    
     // executa a ação do animal
     abstract public void act (Field currentField, Field updatedField, List newFoxes);
-    // retorna o BREEDING AGE do animal
+
     abstract protected int getBreedingAge();
-    // retorna o MAX_AGE do animal
     abstract protected int getMaxAge();
-
     abstract protected int getMaxLitterSize();
-
     abstract protected double getBreedingProbability();
 
-    
     //cria um animal com a idade 0
     public Animal () {
         age = 0;
         alive = true;
     }
-
+    // deixa o animal doente, perto do fim da vida.
     public void deixarDoente() {
         age = getMaxAge() - 2;
     }
@@ -55,7 +51,7 @@ public abstract class Animal implements Actor{
             alive = false;
         }
     }
-
+    // Mata o animal
     public void setDead() {
         alive = false;
     }

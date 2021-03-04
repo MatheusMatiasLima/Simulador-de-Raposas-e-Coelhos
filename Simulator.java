@@ -19,7 +19,7 @@ public class Simulator extends Thread {
     // A etapa atual da simulacao.
     private int step;
     //Quantidade de delay ao executar cada passo da simulaçao
-    private long delay = 0;
+    private long delay = 1000;
     // População da simulação
     private PopulationGenerator populacao;
     

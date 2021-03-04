@@ -16,9 +16,9 @@ public class Simulator extends Thread {
     // As variaveis finais estaticas privadas representam informacoes de configuracao para a simulacao.
 
     // A largura padrao da grade.
-    private static final int DEFAULT_WIDTH = 50;
+    private static final int DEFAULT_WIDTH = 150;
     // A profundidade padrao da grade.
-    private static final int DEFAULT_DEPTH = 50;
+    private static final int DEFAULT_DEPTH = 100;
     // A probabilidade de que uma raposa seja criada em qualquer posicao da grade.
     //private static final double FOX_CREATION_PROBABILITY = 0.02;
     // A probabilidade de um coelho ser criado em qualquer posição da grade.
@@ -95,9 +95,9 @@ public class Simulator extends Thread {
         
         // deixe todos os animais agirem
         for(Iterator<Actor> iter = populacao.getActorsList().iterator(); iter.hasNext(); ) {
-            Actor animal = iter.next();
-            if (animal.isAtive()) {
-                animal.act(populacao.getField(), populacao.getUpdatedField(), populacao.getNewActorsList());
+            Actor actor = iter.next();
+            if (actor.isAtive()) {
+                actor.act(populacao.getField(), populacao.getUpdatedField(), populacao.getNewActorsList());
             }
             else {
                 iter.remove();
@@ -148,20 +148,20 @@ public class Simulator extends Thread {
             for(int col = 0; col < field.getWidth(); col++) {
                 if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
                     Fox fox = new Fox(true);
-                    animals.add(fox);
+                    actors.add(fox);
                     fox.setLocation(row, col);
                     field.place(fox, row, col);
                 }
                 else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
                     Rabbit rabbit = new Rabbit(true);
-                    animals.add(rabbit);
+                    actors.add(rabbit);
                     rabbit.setLocation(row, col);
                     field.place(rabbit, row, col);
                 }
                 // caso contrário, deixe o local vazio.
             }
         }
-        Collections.shuffle(animals);
+        Collections.shuffle(actors);
     }
 */
 }

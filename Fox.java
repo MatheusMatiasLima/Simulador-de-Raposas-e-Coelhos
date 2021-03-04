@@ -19,7 +19,7 @@ public class Fox extends Animal {
     // A probabilidade da raposa procriar.
     private static final double BREEDING_PROBABILITY = 0.1;
     // Numero maximo de nascimento em uma gestacao.
-    private static final int MAX_LITTER_SIZE = 3;
+    private static final int MAX_LITTER_SIZE = 5;
     // Valor de comida de um coelho. Em efeito,
     //quantidade de passos que a raposa pode fazer sem se alimentar.
     private static final int RABBIT_FOOD_VALUE = 4;
@@ -130,8 +130,8 @@ public class Fox extends Animal {
             Object animal = field.getObjectAt(where);
             if(animal instanceof Rabbit) {
                 Rabbit rabbit = (Rabbit) animal;
-                if(rabbit.isAlive()) { 
-                    rabbit.setEaten();
+                if(rabbit.isAtive()) { 
+                    rabbit.setDead();
                     foodLevel = RABBIT_FOOD_VALUE;
                     return where;
                 }

@@ -18,7 +18,7 @@ public class Furacao extends ProblemasAmbientais {
         // Move em direcao ao local para destruir
         Location newLocation = destruir(currentField, location);
         if(newLocation == null) {  // nao encontrou nada para destruir
-            newLocation = updatedField.freeAdjacentLocation(location);
+            newLocation = updatedField.freeAdjacentLocation(location, true);
         }
         if(newLocation != null) {
             setLocation(newLocation);

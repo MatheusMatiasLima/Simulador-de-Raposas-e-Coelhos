@@ -71,13 +71,18 @@ public class Rabbit extends Animal {
         if(alive) {
             int births = breed();
             for(int b = 0; b < births; b++) {
-                Rabbit newRabbit = new Rabbit(false);
-                newRabbits.add(newRabbit);
+                //Rabbit newRabbit = new Rabbit(false);
+                //newRabbits.add(newRabbit);
                 Location loc = updatedField.randomAdjacentLocation(location);
-                newRabbit.setLocation(loc);
-                updatedField.place(newRabbit, loc);
+                Object obj = updatedField.getObjectAt(loc);
+                if(!(obj instanceof Lago)){
+                    Rabbit newRabbit = new Rabbit(false);
+                    newRabbits.add(newRabbit);
+                    newRabbit.setLocation(loc);
+                    updatedField.place(newRabbit, loc);
+                }
             }
-            Location newLocation = updatedField.freeAdjacentLocation(location);
+            Location newLocation = updatedField.freeAdjacentLocation(location,false);
             // Apenas transfere para um novo campo se possuir uma localizacao livre
             if(newLocation != null) {
                 setLocation(newLocation);

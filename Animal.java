@@ -28,6 +28,10 @@ public abstract class Animal implements Actor{
         alive = true;
     }
 
+    public void deixarDoente() {
+        age = getMaxAge() - 2;
+    }
+
     //retorna a idade
     public int getAge() {
         return age;
@@ -50,6 +54,10 @@ public abstract class Animal implements Actor{
         if(age > getMaxAge()) {
             alive = false;
         }
+    }
+
+    public void setDead() {
+        alive = false;
     }
 
     /**

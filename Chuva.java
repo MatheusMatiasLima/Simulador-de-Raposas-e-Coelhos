@@ -13,20 +13,21 @@ public class Chuva extends ProblemasAmbientais {
         return true;
     }
 
+    //Procura algum lugar para ir. Sempre irá para um local vazio a sua volta.
     private void procurarOndeIr(Field currentField, Field updatedField) {
-        // Move em direcao ao local para destruir
-        destruir(currentField, location);
+        chover(currentField, location);
         Location newLocation = null;
         if(newLocation == null) {  // move para um lugar vazio
             newLocation = updatedField.freeAdjacentLocation(location);
         }
-        if(newLocation != null) { // nao encontrou nenhum lugar aparece em qualquer lugar
+        if(newLocation != null) {
             setLocation(newLocation);
             updatedField.place(this, newLocation);
         }
     }
 
-    private void destruir(Field field, Location location) {
+    //chove deixando os animais a sua volta doente
+    private void chover(Field field, Location location) {
         Iterator adjacentLocations = field.adjacentLocations(location);
         while(adjacentLocations.hasNext()) {
             Location where = (Location) adjacentLocations.next();

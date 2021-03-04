@@ -24,10 +24,12 @@ public class SimulatorView extends JFrame
     private final String STEP_PREFIX = "Step: ";
     private final String POPULATION_PREFIX = "Population: ";
     private JLabel stepLabel, population;
-    private JButton pauseButton;
-    private JPanel southPanel;
+    private JButton pauseButton, resetButton, plusButton, lessButton;
+    private JPanel southPanel, buttonsPanel;
     private FieldView fieldView;
 
+    //Quantidade de incremento no delay da simulaçao
+    private final long amountOfDelayIncrement = 50;
     private boolean pause = false;
     
     // Um mapa para guardar as cores dos participantes da simulacao
@@ -49,18 +51,28 @@ public class SimulatorView extends JFrame
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
 
+        lessButton = new JButton("-");
         pauseButton = new JButton("PAUSE");
+        resetButton = new JButton("RESET");
+        resetButton.setEnabled(false);
+        plusButton = new JButton("+");
         configureButtonEvent();
         
         setLocation(100, 50);
         
         fieldView = new FieldView(height, width);
 
+        buttonsPanel = new JPanel(new GridLayout(1, 4));
+        buttonsPanel.add(lessButton);
+        buttonsPanel.add(pauseButton);
+        buttonsPanel.add(resetButton);
+        buttonsPanel.add(plusButton);
+
 
 
         southPanel = new JPanel(new GridLayout(2, 1));
         southPanel.add(population);
-        southPanel.add(pauseButton);
+        southPanel.add(buttonsPanel);
 
         Container contents = getContentPane();
         contents.add(stepLabel, BorderLayout.NORTH);
@@ -70,10 +82,12 @@ public class SimulatorView extends JFrame
         setVisible(true);
     }
 
+    //Funçao para configurar botoes de click desse Jframe
     private void configureButtonEvent()
     {
     	pauseButton.addActionListener(new ActionListener()
         {
+            //Logica para pusar e dar player na simulaçao
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
@@ -82,6 +96,39 @@ public class SimulatorView extends JFrame
                 else
                     simulator.suspend();
                 pause = !pause;
+            }
+        });
+
+    	resetButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent)
+            {
+                simulator.reset();
+                simulator.runLongSimulation();
+            }
+        });
+
+    	//Logica para aumentar a velocidade da simulaçao
+    	plusButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent)
+            {
+            	long delay = simulator.getDelay();
+                if(delay > 0)
+                	simulator.setDelay(delay-amountOfDelayIncrement);
+            }
+        });
+
+        //Logica para diminuir a velocidade da simulaçao com uma quantidade de delay
+    	lessButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent)
+            {
+            	long delay = simulator.getDelay();
+            	simulator.setDelay(delay+amountOfDelayIncrement);
             }
         });
     }

@@ -27,6 +27,9 @@ public class Simulator extends Thread {
     // A etapa atual da simulacao.
     private int step;
 
+    //Quantidade de delay ao executar cada passo da simulaçao
+    private long delay = 0;
+
     private PopulationGenerator populacao;
     
    
@@ -69,6 +72,14 @@ public class Simulator extends Thread {
     // Pare antes de um determinado numero de etapas se deixar de ser viavel.
     public void simulate(int numSteps) {
         for(int step = 1; step <= numSteps && populacao.getView().isViable(populacao.getField()); step++) {
+            try
+            {
+                Thread.sleep(delay);
+            }
+            catch(InterruptedException e)
+            {
+                e.printStackTrace();
+            }
             simulateOneStep();
         }
     }
@@ -116,6 +127,16 @@ public class Simulator extends Thread {
         
         // Mostra a etapa inicial na tela.
         populacao.getView().showStatus(step, populacao.getField());
+    }
+
+    public long getDelay()
+    {
+        return delay;
+    }
+
+    public void setDelay(long delay)
+    {
+        this.delay = delay;
     }
     
 /*

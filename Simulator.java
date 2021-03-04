@@ -8,9 +8,6 @@ import java.awt.Color;
 /**
  * Um simples simulador de predador-presa, baseado em um campo contendo
  * coelhos, raposas e jacares.
- * 
- * @author David J. Barnes and Michael Kolling
- * @version 2002-04-09
  */
 public class Simulator extends Thread {
     // As variaveis finais estaticas privadas representam informacoes de configuracao para a simulacao.
@@ -26,7 +23,6 @@ public class Simulator extends Thread {
     // População da simulação
     private PopulationGenerator populacao;
     
-   
     // Constroi um campo de simulacao com tamanho padrao.
     public Simulator() {
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
@@ -98,7 +94,7 @@ public class Simulator extends Thread {
         }
         // adiciona animais recem-nascidos a lista de animais
         populacao.getActorsList().addAll(populacao.getNewActorsList());
-        
+
         // Troque o campo e updatedField no final da etapa.
         Field temp = populacao.getField();
         populacao.setField(populacao.getUpdatedField());

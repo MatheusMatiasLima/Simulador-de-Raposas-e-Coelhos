@@ -11,7 +11,10 @@ public class PopulationGenerator {
     // A probabilidade de um coelho ser criado em qualquer posição da grade.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;
     // A probabilidade de um jacare ser criado em qualquer posicao da grade.
-    private static final double JACARE_CRIACAO_PROBABILIDADE = 0.01;
+    private static final double JACARE_CREATION_PROBABILITY = 0.01;
+    //A probabilidade de um furacao ser criado em qualquer posicao da grade.
+    private static final double FURACAO_CREATION_PROBABILITY = 0.01;
+    private static final double CHUVA_CREATION_PROBABILITY = 0.02;
 
     // Listas de autores no campo.
     private List<Actor> actors;
@@ -42,6 +45,8 @@ public class PopulationGenerator {
         this.view.setColor(Fox.class, Color.blue);
         this.view.setColor(Rabbit.class, Color.orange);
         this.view.setColor(Jacare.class, Color.green);
+        this.view.setColor(Furacao.class, Color.red);
+        this.view.setColor(Chuva.class, Color.DARK_GRAY);
         
     }
 
@@ -93,11 +98,23 @@ public class PopulationGenerator {
                     rabbit.setLocation(row, col);
                     field.place(rabbit, row, col);
                 }
-                else if(rand.nextDouble() <= JACARE_CRIACAO_PROBABILIDADE) {
+                else if(rand.nextDouble() <= JACARE_CREATION_PROBABILITY) {
                     Jacare jacare = new Jacare(true);
                     actors.add(jacare);
                     jacare.setLocation(row, col);
                     field.place(jacare, row, col);
+                }
+                else if(rand.nextDouble() <= FURACAO_CREATION_PROBABILITY) {
+                    Furacao furacao = new Furacao();
+                    actors.add(furacao);
+                    furacao.setLocation(row, col);
+                    field.place(furacao, row, col);
+                }
+                else if(rand.nextDouble() <= CHUVA_CREATION_PROBABILITY) {
+                    Chuva chuva = new Chuva();
+                    actors.add(chuva);
+                    chuva.setLocation(row, col);
+                    field.place(chuva, row, col);
                 }
             }
         }

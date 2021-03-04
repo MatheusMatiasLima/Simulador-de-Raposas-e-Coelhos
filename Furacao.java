@@ -13,6 +13,7 @@ public class Furacao extends ProblemasAmbientais {
         return true;
     }
 
+    //Procura algum lugar para ir. Ocupa o local do animal que matou.
     private void procurarOndeIr(Field currentField, Field updatedField) {
         // Move em direcao ao local para destruir
         Location newLocation = destruir(currentField, location);
@@ -25,29 +26,16 @@ public class Furacao extends ProblemasAmbientais {
         }
     }
 
+    // destroi o que esta em sua volta tomando o seu lugar 
     private Location destruir(Field field, Location location) {
         Iterator adjacentLocations = field.adjacentLocations(location);
         while(adjacentLocations.hasNext()) {
             Location where = (Location) adjacentLocations.next();
-            Object animal = field.getObjectAt(where);
-            if(animal instanceof Rabbit) {
-                Rabbit rabbit = (Rabbit) animal;
-                if(rabbit.isAlive()) { 
-                    rabbit.setDead();
-                    return where;
-                }
-            }
-            else if (animal instanceof Fox){
-                Fox fox = (Fox) animal;
-                if(fox.alive){
-                    fox.setDead();
-                    return where;
-                }
-            }
-            else if (animal instanceof Jacare) {
-                Jacare jacare = (Jacare) animal;
-                if (jacare.isAtive()) {
-                    jacare.setDead();
+            Object obj = field.getObjectAt(where);
+            if(obj instanceof Animal) {
+                Animal animal = (Animal) obj;
+                if(animal.isAtive()) { 
+                    animal.setDead();
                     return where;
                 }
             }

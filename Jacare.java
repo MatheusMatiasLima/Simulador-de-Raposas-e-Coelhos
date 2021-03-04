@@ -89,7 +89,7 @@ public class Jacare extends Animal {
             // Mova-se em direção à fonte de alimento se encontrada
             Location newLocation = findFood(currentField, location);
             if(newLocation == null) {  // nenhum alimento encontrado - mover aleatoriamente
-                newLocation = updatedField.freeAdjacentLocation(location);
+                newLocation = updatedField.freeAdjacentLocation(location,true);
             }
             if(newLocation != null) {
                 setLocation(newLocation);

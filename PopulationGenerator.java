@@ -15,6 +15,7 @@ public class PopulationGenerator {
     //A probabilidade de um furacao ser criado em qualquer posicao da grade.
     private static final double FURACAO_CREATION_PROBABILITY = 0.01;
     private static final double CHUVA_CREATION_PROBABILITY = 0.02;
+    private static final double LAGO_CREATIO_PROBABILITY = 0.01;
 
     // Listas de autores no campo.
     private List<Actor> actors;
@@ -47,6 +48,7 @@ public class PopulationGenerator {
         this.view.setColor(Jacare.class, Color.green);
         this.view.setColor(Furacao.class, Color.red);
         this.view.setColor(Chuva.class, Color.DARK_GRAY);
+        this.view.setColor(Lago.class, Color.magenta);
         
     }
 
@@ -115,6 +117,11 @@ public class PopulationGenerator {
                     actors.add(chuva);
                     chuva.setLocation(row, col);
                     field.place(chuva, row, col);
+                } else if(rand.nextDouble() <= LAGO_CREATIO_PROBABILITY){
+                    Lago lago = new Lago();
+                    actors.add(lago);
+                    lago.setLocation(row, col);
+                    field.place(lago, row, col);
                 }
             }
         }

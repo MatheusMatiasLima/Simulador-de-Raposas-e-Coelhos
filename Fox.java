@@ -82,16 +82,21 @@ public class Fox extends Animal {
             // Novas raposas nascem em posicoes adjacentes.
             int births = breed();
             for(int b = 0; b < births; b++) {
-                Fox newFox = new Fox(false);
-                newFoxes.add(newFox);
+                //Fox newFox = new Fox(false);
+                //newFoxes.add(newFox);
                 Location loc = updatedField.randomAdjacentLocation(location);
-                newFox.setLocation(loc);
-                updatedField.place(newFox, loc);
+                Object obj = updatedField.getObjectAt(loc);
+                if(!(obj instanceof Lago)){
+                    Fox newFox = new Fox(false);
+                    newFoxes.add(newFox);
+                    newFox.setLocation(loc);
+                    updatedField.place(newFox, loc);
+                }
             }
             // Move em direcao a comida se encontrada.
             Location newLocation = findFood(currentField, location);
             if(newLocation == null) {  // nao encontrou comida - meve aleatoriamente
-                newLocation = updatedField.freeAdjacentLocation(location);
+                newLocation = updatedField.freeAdjacentLocation(location,false);
             }
             if(newLocation != null) {
                 setLocation(newLocation);

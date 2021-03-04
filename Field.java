@@ -122,13 +122,17 @@ public class Field
      * @return Uma localizacao valida da area do grid. Isto pode estar em mesmo objeto
      * como o parametro da localizacao, ou nulo se todas localizacoes ao redor estiverem cheia.
      */
-    public Location freeAdjacentLocation(Location location)
+    public Location freeAdjacentLocation(Location location, boolean andaSobreAgua)
     {
         Iterator adjacent = adjacentLocations(location);
         while(adjacent.hasNext()) {
             Location next = (Location) adjacent.next();
             if(field[next.getRow()][next.getCol()] == null) {
                 return next;
+            } else if(andaSobreAgua){ // Se a posicao não estiver nula, mas for lago e um ator que anda pelo lago
+                if(field[next.getRow()][next.getCol()] instanceof Lago){
+                    return next;
+                }
             }
         }
         // checa se a localizacao atual esta livre

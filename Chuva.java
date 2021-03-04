@@ -18,7 +18,7 @@ public class Chuva extends ProblemasAmbientais {
         chover(currentField, location);
         Location newLocation = null;
         if(newLocation == null) {  // move para um lugar vazio
-            newLocation = updatedField.freeAdjacentLocation(location);
+            newLocation = updatedField.freeAdjacentLocation(location,true);
         }
         if(newLocation != null) {
             setLocation(newLocation);

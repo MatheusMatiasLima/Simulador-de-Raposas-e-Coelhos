@@ -54,7 +54,6 @@ public class SimulatorView extends JFrame
         lessButton = new JButton("-");
         pauseButton = new JButton("PAUSE");
         resetButton = new JButton("RESET");
-        resetButton.setEnabled(false);
         plusButton = new JButton("+");
         configureButtonEvent();
         
@@ -115,8 +114,9 @@ public class SimulatorView extends JFrame
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
-                simulator.reset();
-                simulator.runLongSimulation();
+            	dispose();
+            	simulator.stop();
+            	Principal.main(null);
             }
         });
 

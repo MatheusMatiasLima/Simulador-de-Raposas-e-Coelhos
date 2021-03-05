@@ -1,8 +1,5 @@
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class PopulationGenerator {
     
@@ -88,40 +85,46 @@ public class PopulationGenerator {
         field.clear();
         for(int row = 0; row < field.getDepth(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
-                if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
-                    Fox fox = new Fox(true);
-                    actors.add(fox);
-                    fox.setLocation(row, col);
-                    field.place(fox, row, col);
-                }
-                else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
-                    Rabbit rabbit = new Rabbit(true);
-                    actors.add(rabbit);
-                    rabbit.setLocation(row, col);
-                    field.place(rabbit, row, col);
-                }
-                else if(rand.nextDouble() <= JACARE_CREATION_PROBABILITY) {
-                    Jacare jacare = new Jacare(true);
-                    actors.add(jacare);
-                    jacare.setLocation(row, col);
-                    field.place(jacare, row, col);
-                }
-                else if(rand.nextDouble() <= FURACAO_CREATION_PROBABILITY) {
-                    Furacao furacao = new Furacao();
-                    actors.add(furacao);
-                    furacao.setLocation(row, col);
-                    field.place(furacao, row, col);
-                }
-                else if(rand.nextDouble() <= CHUVA_CREATION_PROBABILITY) {
-                    Chuva chuva = new Chuva();
-                    actors.add(chuva);
-                    chuva.setLocation(row, col);
-                    field.place(chuva, row, col);
-                } else if(rand.nextDouble() <= LAGO_CREATIO_PROBABILITY){
-                    Lago lago = new Lago();
-                    actors.add(lago);
-                    lago.setLocation(row, col);
-                    field.place(lago, row, col);
+                if(field.getObjectAt(row,col) == null) {
+                    if (rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
+                        Fox fox = new Fox(true);
+                        actors.add(fox);
+                        fox.setLocation(row, col);
+                        field.place(fox, row, col);
+                    } else if (rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
+                        Rabbit rabbit = new Rabbit(true);
+                        actors.add(rabbit);
+                        rabbit.setLocation(row, col);
+                        field.place(rabbit, row, col);
+                    } else if (rand.nextDouble() <= JACARE_CREATION_PROBABILITY) {
+                        Jacare jacare = new Jacare(true);
+                        actors.add(jacare);
+                        jacare.setLocation(row, col);
+                        field.place(jacare, row, col);
+                    } else if (rand.nextDouble() <= FURACAO_CREATION_PROBABILITY) {
+                        Furacao furacao = new Furacao();
+                        actors.add(furacao);
+                        furacao.setLocation(row, col);
+                        field.place(furacao, row, col);
+                    } else if (rand.nextDouble() <= CHUVA_CREATION_PROBABILITY) {
+                        Chuva chuva = new Chuva();
+                        actors.add(chuva);
+                        chuva.setLocation(row, col);
+                        field.place(chuva, row, col);
+                    } else if (rand.nextDouble() <= LAGO_CREATIO_PROBABILITY) {
+                        Lago lago = new Lago();
+                        actors.add(lago);
+                        lago.setLocation(row, col);
+                        field.place(lago, row, col);
+                        Iterator iterator = field.adjacentLocations(lago.location);
+                        while (iterator.hasNext()) {
+                            Lago lagoAdjacente = new Lago();
+                            Location where = (Location) iterator.next();
+                            lagoAdjacente.setLocation(where);
+                            actors.add(lagoAdjacente);
+                            field.place(lagoAdjacente, where.getRow(), where.getCol());
+                        }
+                    }
                 }
             }
         }

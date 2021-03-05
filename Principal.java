@@ -1,10 +1,7 @@
 public class Principal{
   public static void main(String[] args){
     Simulator simulator = new Simulator();
-    //simulator.runLongSimulation();
-    //simulator.simulate(300);
     simulator.start();
-    //correcao do codigo feita
-    //Release 1.0 publicada 
+    //Release 2.0 
   }
 }
